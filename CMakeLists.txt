@@ -12,5 +12,5 @@ set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
-qt_add_executable(${PRJ_NAME} src/main.cpp src/MyRect.cpp src/Bullet.cpp src/Enemy.cpp)
+qt_add_executable(${PRJ_NAME} src/main.cpp src/Airplane.cpp src/Bullet.cpp src/Enemy.cpp)
 target_link_libraries(${PRJ_NAME} PRIVATE Qt6::Widgets)

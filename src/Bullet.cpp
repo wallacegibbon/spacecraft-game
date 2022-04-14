@@ -32,10 +32,16 @@ int Bullet::check_and_destroy()
         if (typeid(*item) == typeid(Enemy))
         {
             destroy_with(item);
-            collided++;
+            // collided++;
+            return 1;
         }
     }
     return collided;
+}
+
+bool Bullet::out_of_scene()
+{
+    return (y() + rect().height() < 0) || (y() > scene()->height()) || (x() + rect().width() < 0) || (x() > scene()->width());
 }
 
 void Bullet::move()
@@ -46,7 +52,7 @@ void Bullet::move()
         return;
     }
     setPos(x(), y() - 10);
-    if (y() + rect().height() < 0)
+    if (out_of_scene())
     {
         scene()->removeItem(this);
         delete this;

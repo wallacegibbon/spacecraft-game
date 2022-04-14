@@ -15,6 +15,7 @@ public:
 private:
     void destroy_with(QGraphicsItem *item);
     int check_and_destroy();
+    bool out_of_scene();
 };
 
 #endif
