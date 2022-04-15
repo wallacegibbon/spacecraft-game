@@ -6,9 +6,12 @@
 
 class Enemy : public QObject, public QGraphicsRectItem
 {
+    Q_OBJECT
+
 public:
     Enemy();
     void move();
+
 private:
     int size;
 };
