@@ -38,13 +38,16 @@ Game::Game(int width, int height, QWidget *parent)
     score = new Score(player);
     addItem(score);
 
-    QTimer *timer = new QTimer();
-    QObject::connect(timer, &QTimer::timeout, this, &Game::spawn_enemy);
+    QTimer *enemy_timer = new QTimer();
+    QObject::connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
+    enemy_timer->start(2000);
 
     QObject::connect(this, &Game::score_change, this, &Game::update_score);
     QObject::connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
 
-    timer->start(2000);
+    QTimer *keyboard_timer = new QTimer();
+    QObject::connect(keyboard_timer, &QTimer::timeout, this, &Game::keyboard_handler);
+    keyboard_timer->start(50);
 }
 
 void Game::show()
@@ -76,31 +79,59 @@ void Game::play_enemy_explosion()
     }
 }
 
-void Game::keyPressEvent(QKeyEvent *event)
+JoyStick common_key_prepare(QKeyEvent *event)
 {
+    if (event->isAutoRepeat())
+    {
+        return UnknownJoyStickCommand;
+    }
     switch (event->key())
     {
     case Qt::Key_Left:
-        player->move_left(10);
-        break;
+        return Left;
     case Qt::Key_Right:
-        player->move_right(10);
-        break;
+        return Right;
     case Qt::Key_Up:
-        player->move_up(10);
-        break;
+        return Up;
     case Qt::Key_Down:
-        player->move_down(10);
-        break;
+        return Down;
     case Qt::Key_Space:
-        player->shoot();
-        break;
+        return Shoot;
     default:
-        break;
+        return UnknownJoyStickCommand;
     }
+}
+
+void Game::keyPressEvent(QKeyEvent *event)
+{
+    player_ctrl |= common_key_prepare(event);
 }
 
 void Game::keyReleaseEvent(QKeyEvent *event)
 {
-    // qDebug() << "key released: " << event->key();
+    player_ctrl &= ~common_key_prepare(event);
+}
+
+void Game::keyboard_handler()
+{
+    if (player_ctrl & Left)
+    {
+        player->move_left(10);
+    }
+    if (player_ctrl & Right)
+    {
+        player->move_right(10);
+    }
+    if (player_ctrl & Up)
+    {
+        player->move_up(10);
+    }
+    if (player_ctrl & Down)
+    {
+        player->move_down(10);
+    }
+    if (player_ctrl & Shoot)
+    {
+        player->shoot();
+    }
 }
