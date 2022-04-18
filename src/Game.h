@@ -10,16 +10,20 @@
 #include "Enemy.h"
 #include "Score.h"
 
+class GameView;
+
 class Game : public QGraphicsScene
 {
     Q_OBJECT
 
 public:
-    Game(QWidget *parent = nullptr);
+    Game(int width, int height, QWidget *parent = nullptr);
+    void keyPressEvent(QKeyEvent *event);
     void show();
     void spawn_enemy();
     void update_score();
     void play_enemy_explosion();
+    Airplane *get_player() { return player; }
 
 signals:
     void score_change();

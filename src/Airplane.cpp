@@ -1,6 +1,5 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
-#include <QKeyEvent>
 #include <QDebug>
 #include "Airplane.h"
 #include "Bullet.h"
@@ -60,29 +59,5 @@ void Airplane::move_down(int distance)
     if (y() < scene()->height() - rect().height() - 10)
     {
         setPos(x(), y() + distance);
-    }
-}
-
-void Airplane::keyPressEvent(QKeyEvent *event)
-{
-    switch (event->key())
-    {
-    case Qt::Key_Left:
-        move_left(10);
-        break;
-    case Qt::Key_Right:
-        move_right(10);
-        break;
-    case Qt::Key_Up:
-        move_up(10);
-        break;
-    case Qt::Key_Down:
-        move_down(10);
-        break;
-    case Qt::Key_Space:
-        shoot();
-        break;
-    default:
-        break;
     }
 }

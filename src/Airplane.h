@@ -12,7 +12,7 @@ class Airplane : public QObject, public QGraphicsRectItem
 
 public:
     Airplane(QGraphicsItem *parent = nullptr);
-    void keyPressEvent(QKeyEvent *event) override;
+
     void inc_score(int num) { score += num; }
     int get_score() { return score; }
 
