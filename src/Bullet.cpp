@@ -4,8 +4,9 @@
 #include <QDebug>
 #include "Bullet.h"
 #include "Game.h"
+#include "Enemy.h"
 
-extern Game *game;
+// extern Game *game;
 
 Bullet::Bullet(Airplane *_player) : player(_player)
 {
@@ -17,18 +18,14 @@ Bullet::Bullet(Airplane *_player) : player(_player)
     timer->start(50);
 }
 
-void Bullet::destroy_with(Enemy *enemy)
+void Bullet::handle_hit(Enemy *enemy)
 {
-    player->inc_score(enemy->get_score());
-    emit game->score_change();
-
-    scene()->removeItem(enemy);
-    delete enemy;
+    emit enemy->hit_by_bullet(player);
     scene()->removeItem(this);
     delete this;
 }
 
-int Bullet::check_and_destroy()
+int Bullet::check_hit_and_handle()
 {
     int collided = 0;
     QList<QGraphicsItem *> colliding_items = collidingItems();
@@ -36,7 +33,7 @@ int Bullet::check_and_destroy()
     {
         if (typeid(*item) == typeid(Enemy))
         {
-            destroy_with(dynamic_cast<Enemy *>(item));
+            handle_hit(dynamic_cast<Enemy *>(item));
             // collided++;
             return 1;
         }
@@ -51,7 +48,7 @@ bool Bullet::out_of_scene()
 
 void Bullet::move()
 {
-    int collided = check_and_destroy();
+    int collided = check_hit_and_handle();
     if (collided > 0)
     {
         return;

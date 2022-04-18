@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QWidget>
+#include <QMediaPlayer>
 #include <QObject>
 #include "Airplane.h"
 #include "Enemy.h"
@@ -18,14 +19,17 @@ public:
     void show();
     void spawn_enemy();
     void update_score();
+    void play_enemy_explosion();
 
 signals:
     void score_change();
+    void enemy_destroyed();
 
 private:
     QGraphicsView *view;
     Airplane *player;
     Score *score;
+    QMediaPlayer *explosion_sound;
 };
 
 #endif

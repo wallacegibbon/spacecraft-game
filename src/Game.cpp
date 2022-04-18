@@ -1,5 +1,6 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QMediaPlayer>
 #include <QTimer>
 #include "Game.h"
 #include "Score.h"
@@ -13,6 +14,9 @@ Game::Game(QWidget *parent)
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setFixedSize(800, 600);
+
+    explosion_sound = new QMediaPlayer();
+    explosion_sound->setMedia(QUrl("qrc:/sound/explosion1.wav"));
 
     Airplane *player = new Airplane();
     player->setRect(0, 0, 40, 60);
@@ -29,6 +33,7 @@ Game::Game(QWidget *parent)
 
     QObject::connect(timer, &QTimer::timeout, this, &Game::spawn_enemy);
     QObject::connect(this, &Game::score_change, this, &Game::update_score);
+    QObject::connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
 
     timer->start(2000);
 }
@@ -48,4 +53,9 @@ void Game::spawn_enemy()
 void Game::update_score()
 {
     score->update_score_display();
+}
+
+void Game::play_enemy_explosion()
+{
+    explosion_sound->play();
 }

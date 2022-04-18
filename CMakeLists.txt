@@ -10,9 +10,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Multimedia REQUIRED)
 
-qt_add_executable(${PRJ_NAME}
+add_executable(${PRJ_NAME}
+    resource/application.qrc
     src/main.cpp
     src/Airplane.cpp
     src/Bullet.cpp
@@ -21,4 +22,4 @@ qt_add_executable(${PRJ_NAME}
     src/Score.cpp
 )
 
-target_link_libraries(${PRJ_NAME} PRIVATE Qt6::Widgets)
+target_link_libraries(${PRJ_NAME} PRIVATE Qt5::Widgets Qt5::Multimedia)

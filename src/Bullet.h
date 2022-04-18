@@ -4,7 +4,8 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 #include "Airplane.h"
-#include "Enemy.h"
+
+class Enemy;
 
 class Bullet : public QObject, public QGraphicsRectItem
 {
@@ -13,10 +14,11 @@ class Bullet : public QObject, public QGraphicsRectItem
 public:
     Bullet(Airplane *_player);
     void move();
+    Airplane *owner() { return player; }
 
 private:
-    void destroy_with(Enemy *item);
-    int check_and_destroy();
+    void handle_hit(Enemy *item);
+    int check_hit_and_handle();
     bool out_of_scene();
 
     Airplane *player;
