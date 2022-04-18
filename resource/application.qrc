@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>sound/explosion1.wav</file>
         <file>sound/weapon1.wav</file>
+        <file>sound/bgm1.ogg</file>
     </qresource>
 </RCC>

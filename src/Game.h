@@ -29,6 +29,7 @@ private:
     QGraphicsView *view;
     Airplane *player;
     Score *score;
+    QMediaPlayer *bgm_sound;
     QMediaPlayer *explosion_sound;
 };
 

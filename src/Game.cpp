@@ -1,6 +1,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QMediaPlayer>
+#include <QMediaPlaylist>
 #include <QTimer>
 #include "Game.h"
 #include "Score.h"
@@ -17,6 +18,14 @@ Game::Game(QWidget *parent)
 
     explosion_sound = new QMediaPlayer();
     explosion_sound->setMedia(QUrl("qrc:/sound/explosion1.wav"));
+
+    QMediaPlaylist *bgm_playlist = new QMediaPlaylist();
+    bgm_playlist->addMedia(QUrl("qrc:/sound/bgm1.ogg"));
+    bgm_playlist->setPlaybackMode(QMediaPlaylist::Loop);
+
+    bgm_sound = new QMediaPlayer();
+    bgm_sound->setPlaylist(bgm_playlist);
+    bgm_sound->play();
 
     Airplane *player = new Airplane();
     player->setRect(0, 0, 40, 60);
