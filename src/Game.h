@@ -3,14 +3,10 @@
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
-#include <QWidget>
 #include <QMediaPlayer>
-#include <QObject>
 #include "Airplane.h"
 #include "Enemy.h"
 #include "Score.h"
-
-class GameView;
 
 class Game : public QGraphicsScene
 {
@@ -19,6 +15,7 @@ class Game : public QGraphicsScene
 public:
     Game(int width, int height, QWidget *parent = nullptr);
     void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
     void show();
     void spawn_enemy();
     void update_score();

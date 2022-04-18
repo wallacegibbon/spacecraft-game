@@ -99,3 +99,8 @@ void Game::keyPressEvent(QKeyEvent *event)
         break;
     }
 }
+
+void Game::keyReleaseEvent(QKeyEvent *event)
+{
+    // qDebug() << "key released: " << event->key();
+}

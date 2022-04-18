@@ -2,7 +2,6 @@
 #define __MY_RECT_H
 
 #include <QGraphicsRectItem>
-#include <QObject>
 #include <QMediaPlayer>
 #include <QGraphicsItem>
 

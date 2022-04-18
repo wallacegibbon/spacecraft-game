@@ -2,7 +2,6 @@
 #define __BULLET_H
 
 #include <QGraphicsRectItem>
-#include <QObject>
 #include "Airplane.h"
 #include "Enemy.h"
 
