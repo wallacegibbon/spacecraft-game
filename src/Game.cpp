@@ -57,5 +57,12 @@ void Game::update_score()
 
 void Game::play_enemy_explosion()
 {
-    explosion_sound->play();
+    if (explosion_sound->state() == QMediaPlayer::PlayingState)
+    {
+        explosion_sound->setPosition(0);
+    }
+    else if (explosion_sound->state() == QMediaPlayer::StoppedState)
+    {
+        explosion_sound->play();
+    }
 }
