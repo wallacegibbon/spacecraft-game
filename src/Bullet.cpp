@@ -6,8 +6,6 @@
 #include "Game.h"
 #include "Enemy.h"
 
-// extern Game *game;
-
 Bullet::Bullet(Airplane *_player) : player(_player)
 {
     setRect(0, 0, 10, 50);

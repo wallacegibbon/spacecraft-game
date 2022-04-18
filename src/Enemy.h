@@ -3,8 +3,7 @@
 
 #include <QObject>
 #include <QGraphicsRectItem>
-
-class Airplane;
+#include "Airplane.h"
 
 class Enemy : public QObject, public QGraphicsRectItem
 {

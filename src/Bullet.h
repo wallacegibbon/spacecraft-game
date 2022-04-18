@@ -4,8 +4,7 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 #include "Airplane.h"
-
-class Enemy;
+#include "Enemy.h"
 
 class Bullet : public QObject, public QGraphicsRectItem
 {
