@@ -3,19 +3,12 @@
 #include <QDebug>
 #include "Airplane.h"
 #include "Bullet.h"
-#include "Enemy.h"
 
 void Airplane::shoot()
 {
-    Bullet *new_bullet = new Bullet();
+    Bullet *new_bullet = new Bullet(this);
     new_bullet->setPos(x() + rect().width() / 2 - new_bullet->rect().width() / 2, y());
     scene()->addItem(new_bullet);
-}
-
-void Airplane::spawn()
-{
-    Enemy *enemy = new Enemy();
-    scene()->addItem(enemy);
 }
 
 void Airplane::move_left(int distance)

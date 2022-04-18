@@ -3,9 +3,11 @@
 #include <QTimer>
 #include <QDebug>
 #include "Bullet.h"
-#include "Enemy.h"
+#include "Game.h"
 
-Bullet::Bullet()
+extern Game *game;
+
+Bullet::Bullet(Airplane *_player) : player(_player)
 {
     setRect(0, 0, 10, 50);
 
@@ -15,10 +17,13 @@ Bullet::Bullet()
     timer->start(50);
 }
 
-void Bullet::destroy_with(QGraphicsItem *item)
+void Bullet::destroy_with(Enemy *enemy)
 {
-    scene()->removeItem(item);
-    delete item;
+    player->inc_score(enemy->get_score());
+    emit game->score_change();
+
+    scene()->removeItem(enemy);
+    delete enemy;
     scene()->removeItem(this);
     delete this;
 }
@@ -31,7 +36,7 @@ int Bullet::check_and_destroy()
     {
         if (typeid(*item) == typeid(Enemy))
         {
-            destroy_with(item);
+            destroy_with(dynamic_cast<Enemy *>(item));
             // collided++;
             return 1;
         }

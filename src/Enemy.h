@@ -11,9 +11,11 @@ class Enemy : public QObject, public QGraphicsRectItem
 public:
     Enemy();
     void move();
+    int get_score() { return score; }
 
 private:
     int size;
+    int score;
 };
 
 #endif

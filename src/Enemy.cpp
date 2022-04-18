@@ -10,6 +10,8 @@ Enemy::Enemy()
     size = QRandomGenerator::global()->bounded(10, 70);
     setRect(0, 0, size, size);
 
+    score = size > 40 ? 2 : 1;
+
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Enemy::move);
 

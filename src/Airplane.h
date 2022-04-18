@@ -10,7 +10,8 @@ class Airplane : public QObject, public QGraphicsRectItem
 
 public:
     void keyPressEvent(QKeyEvent *event) override;
-    void spawn();
+    void inc_score(int num) { score += num; }
+    int get_score() { return score; }
 
 private:
     void move_left(int distance);
@@ -18,6 +19,8 @@ private:
     void move_up(int distance);
     void move_down(int distance);
     void shoot();
+
+    int score;
 };
 
 #endif
