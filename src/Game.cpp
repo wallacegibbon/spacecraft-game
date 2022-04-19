@@ -79,7 +79,7 @@ void Game::play_enemy_explosion()
     }
 }
 
-uint16_t common_key_prepare(QKeyEvent *event)
+uint64_t common_key_prepare(QKeyEvent *event)
 {
     if (event->isAutoRepeat())
     {
