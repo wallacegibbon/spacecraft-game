@@ -39,14 +39,15 @@ Game::Game(int width, int height, QWidget *parent)
     addItem(score);
 
     QTimer *enemy_timer = new QTimer();
-    QObject::connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
+    // QObject::connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
+    connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
     enemy_timer->start(2000);
 
-    QObject::connect(this, &Game::score_change, this, &Game::update_score);
-    QObject::connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
+    connect(this, &Game::score_change, this, &Game::update_score);
+    connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
 
     QTimer *keyboard_timer = new QTimer();
-    QObject::connect(keyboard_timer, &QTimer::timeout, this, &Game::keyboard_handler);
+    connect(keyboard_timer, &QTimer::timeout, this, &Game::keyboard_handler);
     keyboard_timer->start(50);
 }
 
