@@ -40,7 +40,7 @@ signals:
 private:
     QGraphicsView *view;
     Airplane *player;
-    uint64_t player_ctrl;
+    uint64_t player_ctrl = 0;
     Score *score;
     QMediaPlayer *bgm_sound;
     QMediaPlayer *explosion_sound;
