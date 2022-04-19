@@ -8,16 +8,6 @@
 #include "Enemy.h"
 #include "Score.h"
 
-enum JoyStick : int
-{
-    UnknownJoyStickCommand = 0,
-    Left = 1,
-    Right = 1 << 1,
-    Up = 1 << 2,
-    Down = 1 << 3,
-    Shoot = 1 << 4,
-};
-
 class Game : public QGraphicsScene
 {
     Q_OBJECT
@@ -27,9 +17,13 @@ public:
     void show();
     Airplane *get_player() { return player; }
 
-signals:
-    void score_change();
-    void enemy_destroyed();
+    static constexpr uint64_t Joystick_Empty_Command = 0;
+    static constexpr uint64_t Joystick_Move_Left = 1;
+    static constexpr uint64_t Joystick_Move_Right = 1 << 1;
+    static constexpr uint64_t Joystick_Move_Up = 1 << 2;
+    static constexpr uint64_t Joystick_Move_Down = 1 << 3;
+    static constexpr uint64_t Joystick_Shoot_1 = 1 << 4;
+    static constexpr uint64_t Joystick_Shoot_2 = 1 << 5;
 
 private:
     void keyPressEvent(QKeyEvent *event) override;
@@ -39,9 +33,14 @@ private:
     void spawn_enemy();
     void keyboard_handler();
 
+signals:
+    void score_change();
+    void enemy_destroyed();
+
+private:
     QGraphicsView *view;
     Airplane *player;
-    int player_ctrl;
+    uint64_t player_ctrl;
     Score *score;
     QMediaPlayer *bgm_sound;
     QMediaPlayer *explosion_sound;

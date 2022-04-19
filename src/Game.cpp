@@ -79,26 +79,26 @@ void Game::play_enemy_explosion()
     }
 }
 
-JoyStick common_key_prepare(QKeyEvent *event)
+uint16_t common_key_prepare(QKeyEvent *event)
 {
     if (event->isAutoRepeat())
     {
-        return UnknownJoyStickCommand;
+        return Game::Joystick_Empty_Command;
     }
     switch (event->key())
     {
     case Qt::Key_Left:
-        return Left;
+        return Game::Joystick_Move_Left;
     case Qt::Key_Right:
-        return Right;
+        return Game::Joystick_Move_Right;
     case Qt::Key_Up:
-        return Up;
+        return Game::Joystick_Move_Up;
     case Qt::Key_Down:
-        return Down;
+        return Game::Joystick_Move_Down;
     case Qt::Key_Space:
-        return Shoot;
+        return Game::Joystick_Shoot_1;
     default:
-        return UnknownJoyStickCommand;
+        return Game::Joystick_Empty_Command;
     }
 }
 
@@ -114,23 +114,23 @@ void Game::keyReleaseEvent(QKeyEvent *event)
 
 void Game::keyboard_handler()
 {
-    if (player_ctrl & Left)
+    if (player_ctrl & Joystick_Move_Left)
     {
         player->move_left(10);
     }
-    if (player_ctrl & Right)
+    if (player_ctrl & Joystick_Move_Right)
     {
         player->move_right(10);
     }
-    if (player_ctrl & Up)
+    if (player_ctrl & Joystick_Move_Up)
     {
         player->move_up(10);
     }
-    if (player_ctrl & Down)
+    if (player_ctrl & Joystick_Move_Down)
     {
         player->move_down(10);
     }
-    if (player_ctrl & Shoot)
+    if (player_ctrl & Joystick_Shoot_1)
     {
         player->shoot();
     }
