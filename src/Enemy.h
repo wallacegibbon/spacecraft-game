@@ -1,7 +1,6 @@
 #ifndef __ENEMY_H
 #define __ENEMY_H
 
-#include <QObject>
 #include <QGraphicsRectItem>
 #include "Airplane.h"
 
@@ -14,6 +13,8 @@ public:
     void move();
     int get_score() { return score; }
     void handle_bullet_hit(Airplane *player);
+    qreal height() { return boundingRect().height(); }
+    qreal width() { return boundingRect().width(); }
 
 signals:
     void hit_by_bullet(Airplane *player);

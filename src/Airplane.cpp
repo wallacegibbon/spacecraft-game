@@ -13,7 +13,7 @@ Airplane::Airplane(QGraphicsItem *parent)
 void Airplane::shoot()
 {
     Bullet *new_bullet = new Bullet(this);
-    new_bullet->setPos(x() + rect().width() / 2 - new_bullet->rect().width() / 2, y());
+    new_bullet->setPos(x() + rect().width() / 2 - new_bullet->width() / 2, y());
     scene()->addItem(new_bullet);
     play_bullect_sound();
 }

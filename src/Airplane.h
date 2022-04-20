@@ -12,6 +12,9 @@ class Airplane : public QObject, public QGraphicsRectItem
 public:
     Airplane(QGraphicsItem *parent = nullptr);
 
+    qreal height() { return rect().height(); }
+    qreal width() { return rect().width(); }
+
     void inc_score(int num) { score += num; }
     int get_score() { return score; }
 

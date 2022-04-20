@@ -8,7 +8,7 @@
 
 Bullet::Bullet(Airplane *_player) : player(_player)
 {
-    setRect(0, 0, 10, 50);
+    setPixmap(QPixmap(QString::asprintf(":/image/bullet1.png")));
 
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Bullet::move);
@@ -41,7 +41,7 @@ int Bullet::check_hit_and_handle()
 
 bool Bullet::out_of_scene()
 {
-    return (y() + rect().height() < 0) || (y() > scene()->height()) || (x() + rect().width() < 0) || (x() > scene()->width());
+    return (y() + height() < 0) || (y() > scene()->height()) || (x() + width() < 0) || (x() > scene()->width());
 }
 
 void Bullet::move()
@@ -51,7 +51,7 @@ void Bullet::move()
     {
         return;
     }
-    setPos(x(), y() - 10);
+    setPos(x(), y() - 15);
     if (out_of_scene())
     {
         scene()->removeItem(this);

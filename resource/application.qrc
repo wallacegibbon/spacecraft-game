@@ -1,7 +1,41 @@
 <RCC>
     <qresource prefix="/">
         <file>sound/explosion1.wav</file>
+        <file>sound/explosion2.wav</file>
         <file>sound/weapon1.wav</file>
         <file>sound/bgm1.ogg</file>
+        <file>image/explosion_animation/expl_06_0000.png</file>
+        <file>image/explosion_animation/expl_06_0001.png</file>
+        <file>image/explosion_animation/expl_06_0002.png</file>
+        <file>image/explosion_animation/expl_06_0003.png</file>
+        <file>image/explosion_animation/expl_06_0004.png</file>
+        <file>image/explosion_animation/expl_06_0005.png</file>
+        <file>image/explosion_animation/expl_06_0006.png</file>
+        <file>image/explosion_animation/expl_06_0007.png</file>
+        <file>image/explosion_animation/expl_06_0008.png</file>
+        <file>image/explosion_animation/expl_06_0009.png</file>
+        <file>image/explosion_animation/expl_06_0010.png</file>
+        <file>image/explosion_animation/expl_06_0011.png</file>
+        <file>image/explosion_animation/expl_06_0012.png</file>
+        <file>image/explosion_animation/expl_06_0013.png</file>
+        <file>image/explosion_animation/expl_06_0014.png</file>
+        <file>image/explosion_animation/expl_06_0015.png</file>
+        <file>image/explosion_animation/expl_06_0016.png</file>
+        <file>image/explosion_animation/expl_06_0017.png</file>
+        <file>image/explosion_animation/expl_06_0018.png</file>
+        <file>image/explosion_animation/expl_06_0019.png</file>
+        <file>image/explosion_animation/expl_06_0020.png</file>
+        <file>image/explosion_animation/expl_06_0021.png</file>
+        <file>image/explosion_animation/expl_06_0022.png</file>
+        <file>image/explosion_animation/expl_06_0023.png</file>
+        <file>image/explosion_animation/expl_06_0024.png</file>
+        <file>image/explosion_animation/expl_06_0025.png</file>
+        <file>image/explosion_animation/expl_06_0026.png</file>
+        <file>image/explosion_animation/expl_06_0027.png</file>
+        <file>image/explosion_animation/expl_06_0028.png</file>
+        <file>image/explosion_animation/expl_06_0029.png</file>
+        <file>image/explosion_animation/expl_06_0030.png</file>
+        <file>image/explosion_animation/expl_06_0031.png</file>
+        <file>image/bullet1.png</file>
     </qresource>
 </RCC>
