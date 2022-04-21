@@ -124,13 +124,19 @@ void Game::keyReleaseEvent(QKeyEvent *event)
 
 void Game::keyboard_handler()
 {
-    if (player_ctrl & Joystick_Move_Left)
+    uint64_t left_hold = player_ctrl & Joystick_Move_Left;
+    uint64_t right_hold = player_ctrl & Joystick_Move_Right;
+    if (left_hold && !right_hold)
     {
         player->move_left(10);
     }
-    if (player_ctrl & Joystick_Move_Right)
+    if (right_hold && !left_hold)
     {
         player->move_right(10);
+    }
+    if (left_hold && right_hold)
+    {
+        player->backto_normal();
     }
     if (player_ctrl & Joystick_Move_Up)
     {
