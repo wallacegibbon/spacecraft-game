@@ -38,18 +38,18 @@ void Airplane::backto_normal()
 
 void Airplane::move_left(int distance)
 {
+    setPixmap(QPixmap(QString::asprintf(":/image/airplane_%d/left.png", airplane_id)));
     if (x() > 0)
     {
-        setPixmap(QPixmap(QString::asprintf(":/image/airplane_%d/left.png", airplane_id)));
         setPos(x() - distance, y());
     }
 }
 
 void Airplane::move_right(int distance)
 {
+    setPixmap(QPixmap(QString::asprintf(":/image/airplane_%d/right.png", airplane_id)));
     if (x() + width() < scene()->width())
     {
-        setPixmap(QPixmap(QString::asprintf(":/image/airplane_%d/right.png", airplane_id)));
         setPos(x() + distance, y());
     }
 }
