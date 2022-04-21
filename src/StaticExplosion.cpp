@@ -31,8 +31,6 @@ void StaticExplosion::set_animation_image(int index)
                                      animation_prefix, index));
     int x = (v_width - pixmap.size().width()) / 2;
     int y = (v_height - pixmap.size().height()) / 2;
-    // qDebug() << "image size: " << pixmap.size().width() << ", vx: " << v_width << ", vy:" << v_height
-    //          << ", offset:" << x << ", " << y;
     setOffset(x, y);
     setPixmap(pixmap);
 }

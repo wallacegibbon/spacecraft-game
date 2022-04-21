@@ -19,10 +19,10 @@ Game::Game(int width, int height, QWidget *parent)
     view->setFixedSize(width, height);
 
     explosion_sound = new QMediaPlayer();
-    explosion_sound->setMedia(QUrl("qrc:/sound/explosion1.wav"));
+    explosion_sound->setMedia(QUrl("qrc:/sound/explosion_1.wav"));
 
     QMediaPlaylist *bgm_playlist = new QMediaPlaylist();
-    bgm_playlist->addMedia(QUrl("qrc:/sound/bgm1.ogg"));
+    bgm_playlist->addMedia(QUrl("qrc:/sound/bgm_1.ogg"));
     bgm_playlist->setPlaybackMode(QMediaPlaylist::Loop);
 
     bgm_sound = new QMediaPlayer();
@@ -30,10 +30,9 @@ Game::Game(int width, int height, QWidget *parent)
     bgm_sound->play();
 
     player = new Airplane();
-    player->setRect(0, 0, 40, 60);
     // player->setFlag(QGraphicsItem::ItemIsFocusable);
     // player->setFocus();
-    player->setPos(view->width() / 2 - player->rect().width() / 2, view->height() - player->rect().height() - 10);
+    player->setPos(view->width() / 2 - player->width() / 2, view->height() - player->height() - 10);
     addItem(player);
 
     score = new Score(player);
@@ -115,7 +114,12 @@ void Game::keyPressEvent(QKeyEvent *event)
 
 void Game::keyReleaseEvent(QKeyEvent *event)
 {
-    player_ctrl &= ~common_key_prepare(event);
+    int released_key = common_key_prepare(event);
+    if (released_key == Joystick_Move_Left || released_key == Joystick_Move_Right)
+    {
+        player->backto_normal();
+    }
+    player_ctrl &= ~released_key;
 }
 
 void Game::keyboard_handler()
