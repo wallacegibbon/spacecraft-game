@@ -114,12 +114,7 @@ void Game::keyPressEvent(QKeyEvent *event)
 
 void Game::keyReleaseEvent(QKeyEvent *event)
 {
-    int released_key = common_key_prepare(event);
-    if (released_key == Joystick_Move_Left || released_key == Joystick_Move_Right)
-    {
-        player->backto_normal();
-    }
-    player_ctrl &= ~released_key;
+    player_ctrl &= ~common_key_prepare(event);;
 }
 
 void Game::keyboard_handler()
@@ -134,7 +129,7 @@ void Game::keyboard_handler()
     {
         player->move_right(10);
     }
-    if (left_hold && right_hold)
+    if ((left_hold && right_hold) || (!left_hold && !right_hold))
     {
         player->backto_normal();
     }
