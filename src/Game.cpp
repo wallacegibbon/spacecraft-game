@@ -31,7 +31,8 @@ Game::Game(int width, int height, QWidget *parent)
     bgm_sound->setPlaylist(bgm_playlist);
     bgm_sound->play();
 
-    setBackgroundBrush(QBrush(QImage(":/image/bg_1.png")));
+    // setBackgroundBrush(QBrush(QImage(":/image/bg_1.png")));
+    setBackgroundBrush(QBrush(Qt::black));
 
     player = new Airplane();
     // player->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -125,6 +126,8 @@ void Game::keyboard_handler()
 {
     uint64_t left_hold = player_ctrl & Joystick_Move_Left;
     uint64_t right_hold = player_ctrl & Joystick_Move_Right;
+    uint64_t up_hold = player_ctrl & Joystick_Move_Up;
+    uint64_t down_hold = player_ctrl & Joystick_Move_Down;
     if (left_hold && !right_hold)
     {
         player->move_left(10);
@@ -135,15 +138,19 @@ void Game::keyboard_handler()
     }
     if ((left_hold && right_hold) || (!left_hold && !right_hold))
     {
-        player->backto_normal();
+        player->backto_normal_direction();
     }
-    if (player_ctrl & Joystick_Move_Up)
+    if (up_hold && !down_hold)
     {
         player->move_up(10);
     }
-    if (player_ctrl & Joystick_Move_Down)
+    if (down_hold && !up_hold)
     {
         player->move_down(10);
+    }
+    if ((up_hold && down_hold) || (!up_hold && !down_hold))
+    {
+        player->backto_normal_speed();
     }
     if (player_ctrl & Joystick_Shoot_1)
     {

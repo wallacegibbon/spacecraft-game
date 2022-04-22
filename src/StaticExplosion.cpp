@@ -1,8 +1,8 @@
 #include <QDebug>
 #include "StaticExplosion.h"
 
-StaticExplosion::StaticExplosion(int _total_frames, const char *_animation_prefix, QGraphicsItem *parent)
-    : animation_prefix(_animation_prefix), total_frames(_total_frames), QObject(), QGraphicsPixmapItem(parent)
+StaticExplosion::StaticExplosion(int _id, int _total_frames, QGraphicsItem *parent)
+    : id(_id), total_frames(_total_frames), QObject(), QGraphicsPixmapItem(parent)
 {
     animation_timer = new QTimer(this);
     connect(animation_timer, &QTimer::timeout, this, &StaticExplosion::animation_update);
@@ -27,8 +27,7 @@ void StaticExplosion::set_v_size(int x, int y)
 
 void StaticExplosion::set_animation_image(int index)
 {
-    QPixmap pixmap(QString::asprintf(":/image/explosion_animation/%s%04d.png",
-                                     animation_prefix, index));
+    QPixmap pixmap(QString::asprintf(":/image/explosion_animation_1/%04d.png", index));
     int x = (v_width - pixmap.size().width()) / 2;
     int y = (v_height - pixmap.size().height()) / 2;
     setOffset(x, y);

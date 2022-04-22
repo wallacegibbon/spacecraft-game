@@ -4,10 +4,15 @@
 #include <QGraphicsPixmapItem>
 #include <QMediaPlayer>
 #include <QGraphicsItem>
+#include <QPainter>
+#include <QTimer>
 
 class Airplane : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
+
+    enum Direction { Normal, Left, Right };
+    enum Speed { Default, Fast, Slow };
 
 public:
     Airplane(QGraphicsItem *parent = nullptr);
@@ -22,16 +27,30 @@ public:
     void move_right(int distance);
     void move_up(int distance);
     void move_down(int distance);
-    void backto_normal();
+    void backto_normal_direction();
+    void backto_normal_speed();
     void shoot();
 
 private:
     void play_bullect_sound();
+    QString body_image_url();
+    QString speed_image_url();
+    void draw();
+    void update_flame_cnt();
 
+private:
     int score = 0;
+    int airplane_id = 1;
+    int flame_id = 1;
+    volatile int flame_cnt = 0;
+    int flame_cnt_total = 3;
+    int flame_offset = -16;
+    Direction direction = Normal;
+    Speed speed = Default;
     QMediaPlayer *bullet_sound;
 
-    int airplane_id = 1;
+    /* the Game keyboard handler will trigger the refresh */
+    // QTimer *refresh_timer;
 };
 
 #endif

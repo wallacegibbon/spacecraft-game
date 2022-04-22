@@ -47,7 +47,7 @@ void Enemy::handle_bullet_hit(Airplane *player)
     emit game->enemy_destroyed();
 
     // create and attach the explosion animation
-    StaticExplosion *explosion = new StaticExplosion(32, "expl_06_");
+    StaticExplosion *explosion = new StaticExplosion_1();
     explosion->set_v_size(width(), height());
     explosion->setPos(x(), y());
     game->add_static_item(explosion);
