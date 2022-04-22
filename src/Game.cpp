@@ -4,6 +4,8 @@
 #include <QMediaPlaylist>
 #include <QTimer>
 #include <QKeyEvent>
+#include <QBrush>
+#include <QImage>
 #include "Game.h"
 #include "Score.h"
 #include "common.h"
@@ -28,6 +30,8 @@ Game::Game(int width, int height, QWidget *parent)
     bgm_sound = new QMediaPlayer();
     bgm_sound->setPlaylist(bgm_playlist);
     bgm_sound->play();
+
+    setBackgroundBrush(QBrush(QImage(":/image/bg_1.png")));
 
     player = new Airplane();
     // player->setFlag(QGraphicsItem::ItemIsFocusable);
