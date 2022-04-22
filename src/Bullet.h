@@ -20,7 +20,6 @@ private:
     void handle_hit(Enemy *item);
     int check_hit_and_handle();
     bool out_of_scene();
-
     Airplane *player;
 };
 

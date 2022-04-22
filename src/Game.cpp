@@ -38,13 +38,13 @@ Game::Game(int width, int height, QWidget *parent)
     score = new Score(player);
     addItem(score);
 
+    connect(this, &Game::score_change, this, &Game::update_score);
+    connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
+
     QTimer *enemy_timer = new QTimer(this);
     // QObject::connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
     connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
     enemy_timer->start(1200);
-
-    connect(this, &Game::score_change, this, &Game::update_score);
-    connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
 
     QTimer *keyboard_timer = new QTimer(this);
     connect(keyboard_timer, &QTimer::timeout, this, &Game::keyboard_handler);
@@ -114,7 +114,7 @@ void Game::keyPressEvent(QKeyEvent *event)
 
 void Game::keyReleaseEvent(QKeyEvent *event)
 {
-    player_ctrl &= ~common_key_prepare(event);;
+    player_ctrl &= ~common_key_prepare(event);
 }
 
 void Game::keyboard_handler()
