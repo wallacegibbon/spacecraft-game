@@ -12,10 +12,10 @@ extern Game *game;
 Enemy::Enemy()
 {
     connect(this, &Enemy::hit_by_bullet, this, &Enemy::handle_bullet_hit);
-    setPos(QRandomGenerator::global()->bounded(10, 790), 0);
+    setPos(QRandomGenerator::global()->bounded(0, game->width()), 0);
     speed = QRandomGenerator::global()->bounded(5, 50);
 
-    QPixmap pixmap(":/image/enemy_1.png");
+    QPixmap pixmap(":/image/enemy_0.png");
     setPixmap(pixmap);
     setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
     if (speed > BASE_SPEED)
@@ -47,7 +47,7 @@ void Enemy::handle_bullet_hit(Airplane *player)
     emit game->enemy_destroyed();
 
     // create and attach the explosion animation
-    StaticExplosion *explosion = new StaticExplosion_1();
+    StaticExplosion *explosion = new StaticExplosion_0();
     explosion->set_v_size(width(), height());
     explosion->setPos(x(), y());
     game->add_static_item(explosion);

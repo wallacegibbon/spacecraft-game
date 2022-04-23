@@ -25,10 +25,10 @@ private:
     QTimer *animation_timer;
 };
 
-class StaticExplosion_1 : public StaticExplosion
+class StaticExplosion_0 : public StaticExplosion
 {
 public:
-    StaticExplosion_1() : StaticExplosion(1, 32) {}
+    StaticExplosion_0() : StaticExplosion(0, 32) {}
 };
 
 #endif

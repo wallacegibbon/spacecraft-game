@@ -2,12 +2,14 @@
 #include <QGraphicsView>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <QRandomGenerator>
 #include <QTimer>
 #include <QKeyEvent>
 #include <QBrush>
 #include <QImage>
 #include "Game.h"
 #include "Score.h"
+#include "StaticStuff.h"
 #include "common.h"
 
 Game::Game(int width, int height, QWidget *parent)
@@ -21,17 +23,17 @@ Game::Game(int width, int height, QWidget *parent)
     view->setFixedSize(width, height);
 
     explosion_sound = new QMediaPlayer();
-    explosion_sound->setMedia(QUrl("qrc:/sound/explosion_1.wav"));
+    explosion_sound->setMedia(QUrl("qrc:/sound/explosion_0.wav"));
 
     QMediaPlaylist *bgm_playlist = new QMediaPlaylist();
-    bgm_playlist->addMedia(QUrl("qrc:/sound/bgm_1.ogg"));
+    bgm_playlist->addMedia(QUrl("qrc:/sound/bgm_0.ogg"));
     bgm_playlist->setPlaybackMode(QMediaPlaylist::Loop);
 
     bgm_sound = new QMediaPlayer();
     bgm_sound->setPlaylist(bgm_playlist);
     bgm_sound->play();
 
-    // setBackgroundBrush(QBrush(QImage(":/image/bg_1.png")));
+    // setBackgroundBrush(QBrush(QImage(":/image/bg_0.png")));
     setBackgroundBrush(QBrush(Qt::black));
 
     player = new Airplane();
@@ -70,6 +72,10 @@ void Game::spawn_enemy()
 {
     Enemy *enemy = new Enemy();
     addItem(enemy);
+    if (QRandomGenerator::global()->bounded(0, 10) > 6)
+    {
+        add_static_item(new RandomStaticSmoke());
+    }
 }
 
 void Game::update_score()

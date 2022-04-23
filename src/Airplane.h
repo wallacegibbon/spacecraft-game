@@ -40,8 +40,8 @@ private:
 
 private:
     int score = 0;
-    int airplane_id = 1;
-    int flame_id = 1;
+    int airplane_id = 0;
+    int flame_id = 0;
     int flame_cnt = 0;
     int flame_cnt_total = 3;
     int flame_offset = -16;

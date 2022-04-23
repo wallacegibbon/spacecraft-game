@@ -7,7 +7,7 @@
 Airplane::Airplane(QGraphicsItem *parent)
 {
     bullet_sound = new QMediaPlayer(this, QMediaPlayer::LowLatency);
-    bullet_sound->setMedia(QUrl("qrc:/sound/weapon_1.wav"));
+    bullet_sound->setMedia(QUrl("qrc:/sound/weapon_0.wav"));
     draw();
     // refresh_timer = new QTimer(this);
     // connect(refresh_timer, &QTimer::timeout, this, &Airplane::draw);
