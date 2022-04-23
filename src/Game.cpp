@@ -136,11 +136,11 @@ void Game::keyboard_handler()
     uint64_t down_hold = player_ctrl & Joystick_Move_Down;
     if (left_hold && !right_hold)
     {
-        player->move_left(10);
+        player->move_left(8);
     }
     if (right_hold && !left_hold)
     {
-        player->move_right(10);
+        player->move_right(8);
     }
     if ((left_hold && right_hold) || (!left_hold && !right_hold))
     {
@@ -148,11 +148,11 @@ void Game::keyboard_handler()
     }
     if (up_hold && !down_hold)
     {
-        player->move_up(10);
+        player->move_up(8);
     }
     if (down_hold && !up_hold)
     {
-        player->move_down(10);
+        player->move_down(8);
     }
     if ((up_hold && down_hold) || (!up_hold && !down_hold))
     {
@@ -180,7 +180,7 @@ void Game::static_item_handler()
     while (it != static_items.end())
     {
         QGraphicsItem *item = *it;
-        item->setPos(item->x(), item->y() + 5);
+        item->setPos(item->x(), item->y() + 10);
         if (item->y() > height())
         {
             it = static_items.erase(it);
