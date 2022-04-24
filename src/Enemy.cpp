@@ -9,7 +9,7 @@
 
 extern Game *game;
 
-Enemy::Enemy()
+Enemy::Enemy(int _layer) : layer(_layer)
 {
     connect(this, &Enemy::hit_by_bullet, this, &Enemy::handle_bullet_hit);
     setPos(QRandomGenerator::global()->bounded(0, game->width()), 0);
@@ -50,7 +50,7 @@ void Enemy::handle_bullet_hit(Airplane *player)
     StaticExplosion *explosion = new StaticExplosion_0();
     explosion->set_v_size(width(), height());
     explosion->setPos(x(), y());
-    game->add_static_item(explosion);
+    game->add_static_item(explosion, layer);
 
     scene()->removeItem(this);
     delete this;

@@ -4,6 +4,7 @@
 #include "Airplane.h"
 #include "Enemy.h"
 #include "Score.h"
+#include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QMediaPlayer>
@@ -17,7 +18,8 @@ public:
     Game(int width, int height, QWidget *parent = nullptr);
     void show();
     Airplane *get_player() { return player; }
-    void add_static_item(QGraphicsItem *item);
+    void add_static_item(QGraphicsItem *item, int layer);
+    bool add_item_to_layer(QGraphicsItem *item, int layer_num);
 
     static constexpr uint64_t Joystick_Empty_Command = 0;
     static constexpr uint64_t Joystick_Move_Left = 1;
@@ -26,6 +28,8 @@ public:
     static constexpr uint64_t Joystick_Move_Down = 1 << 3;
     static constexpr uint64_t Joystick_Shoot_1 = 1 << 4;
     static constexpr uint64_t Joystick_Shoot_2 = 1 << 5;
+
+    static constexpr int NumOfLayers = 5;
 
 private:
     void keyPressEvent(QKeyEvent *event) override;
@@ -48,6 +52,8 @@ private:
     QMediaPlayer *bgm_sound;
     QMediaPlayer *explosion_sound;
     std::list<QGraphicsItem *> static_items;
+    /* the bigger the number, the upper the layer */
+    QGraphicsRectItem *layers[NumOfLayers];
 };
 
 #endif

@@ -9,9 +9,10 @@ class Enemy : public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 
 public:
-    Enemy();
+    Enemy(int _layer);
     void move();
     int get_score() { return score; }
+    int get_layer() { return layer; }
     void handle_bullet_hit(Airplane *player);
     qreal height() { return boundingRect().height(); }
     qreal width() { return boundingRect().width(); }
@@ -22,6 +23,7 @@ signals:
 private:
     int speed;
     int score;
+    int layer;
 };
 
 #endif

@@ -36,14 +36,20 @@ Game::Game(int width, int height, QWidget *parent)
     // setBackgroundBrush(QBrush(QImage(":/image/bg_0.png")));
     setBackgroundBrush(QBrush(Qt::black));
 
+    for (QGraphicsRectItem *&layer : layers)
+    {
+        layer = new QGraphicsRectItem();
+        addItem(layer);
+    }
+
     player = new Airplane();
     // player->setFlag(QGraphicsItem::ItemIsFocusable);
     // player->setFocus();
     player->setPos(view->width() / 2 - player->width() / 2, view->height() - player->height() - 10);
-    addItem(player);
+    add_item_to_layer(player, 2);
 
     score = new Score(player);
-    addItem(score);
+    add_item_to_layer(score, NumOfLayers - 1);
 
     connect(this, &Game::score_change, this, &Game::update_score);
     connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
@@ -70,11 +76,14 @@ void Game::show()
 
 void Game::spawn_enemy()
 {
-    Enemy *enemy = new Enemy();
-    addItem(enemy);
-    if (QRandomGenerator::global()->bounded(0, 10) > 6)
+    int random_num = QRandomGenerator::global()->bounded(0, 10);
+    /* the player is in layer2, enemy should be in layer 1 or 3 */
+    int layer_of_enemy = random_num > 5 ? 1 : 3;
+    Enemy *enemy = new Enemy(layer_of_enemy);
+    add_item_to_layer(enemy, layer_of_enemy);
+    if (random_num > 6)
     {
-        add_static_item(new RandomStaticSmoke());
+        add_static_item(new RandomStaticSmoke(), NumOfLayers - 2);
     }
 }
 
@@ -158,9 +167,18 @@ void Game::keyboard_handler()
     }
 }
 
-void Game::add_static_item(QGraphicsItem *item)
+bool Game::add_item_to_layer(QGraphicsItem *item, int layer_num)
 {
-    addItem(item);
+    if (layer_num >= NumOfLayers)
+    {
+        return false;
+    }
+    item->setParentItem(layers[layer_num]);
+}
+
+void Game::add_static_item(QGraphicsItem *item, int layer)
+{
+    add_item_to_layer(item, layer);
     static_items.push_front(item);
 }
 

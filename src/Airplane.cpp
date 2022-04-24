@@ -1,8 +1,11 @@
 #include "Airplane.h"
 #include "Bullet.h"
+#include "Game.h"
 #include <QDebug>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
+
+extern Game *game;
 
 Airplane::Airplane(QGraphicsItem *parent)
 {
@@ -60,7 +63,7 @@ void Airplane::shoot()
 {
     Bullet *new_bullet = new Bullet(this);
     new_bullet->setPos(x() + width() / 2 - new_bullet->width() / 2, y());
-    scene()->addItem(new_bullet);
+    game->add_item_to_layer(new_bullet, 1);
     play_bullect_sound();
 }
 
