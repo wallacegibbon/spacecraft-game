@@ -1,8 +1,8 @@
 #ifndef __STATIC_EXPLOSION_H
 #define __STATIC_EXPLOSION_H
 
-#include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
+#include <QGraphicsPixmapItem>
 #include <QTimer>
 
 class StaticExplosion : public QObject, public QGraphicsPixmapItem

@@ -1,0 +1,9 @@
+BasedOnStyle: Microsoft
+
+AccessModifierOffset: -4
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortBlocksOnASingleLine: Always
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortEnumsOnASingleLine: true
+IndentExternBlock: NoIndent
+AlwaysBreakTemplateDeclarations: Yes

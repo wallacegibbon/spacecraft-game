@@ -1,7 +1,7 @@
-#include <QGraphicsScene>
-#include <QRandomGenerator>
 #include "StaticStuff.h"
 #include "Game.h"
+#include <QGraphicsScene>
+#include <QRandomGenerator>
 
 extern Game *game;
 

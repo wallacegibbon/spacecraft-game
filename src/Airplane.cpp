@@ -1,8 +1,8 @@
-#include <QGraphicsScene>
-#include <QGraphicsItem>
-#include <QDebug>
 #include "Airplane.h"
 #include "Bullet.h"
+#include <QDebug>
+#include <QGraphicsItem>
+#include <QGraphicsScene>
 
 Airplane::Airplane(QGraphicsItem *parent)
 {
@@ -31,12 +31,9 @@ QString Airplane::body_image_url()
 {
     switch (direction)
     {
-    case Left:
-        return QString::asprintf(":/image/airplane_%d/left.png", airplane_id);
-    case Right:
-        return QString::asprintf(":/image/airplane_%d/right.png", airplane_id);
-    default:
-        return QString::asprintf(":/image/airplane_%d/normal.png", airplane_id);
+    case Left: return QString::asprintf(":/image/airplane_%d/left.png", airplane_id);
+    case Right: return QString::asprintf(":/image/airplane_%d/right.png", airplane_id);
+    default: return QString::asprintf(":/image/airplane_%d/normal.png", airplane_id);
     }
 }
 
@@ -44,12 +41,9 @@ QString Airplane::speed_image_url()
 {
     switch (speed)
     {
-    case Fast:
-        return QString::asprintf(":/image/rocket_flame_%d/fast_%d.png", flame_id, flame_cnt);
-    case Slow:
-        return QString::asprintf(":/image/rocket_flame_%d/slow_%d.png", flame_id, flame_cnt);
-    default:
-        return QString::asprintf(":/image/rocket_flame_%d/normal_%d.png", flame_id, flame_cnt);
+    case Fast: return QString::asprintf(":/image/rocket_flame_%d/fast_%d.png", flame_id, flame_cnt);
+    case Slow: return QString::asprintf(":/image/rocket_flame_%d/slow_%d.png", flame_id, flame_cnt);
+    default: return QString::asprintf(":/image/rocket_flame_%d/normal_%d.png", flame_id, flame_cnt);
     }
 }
 

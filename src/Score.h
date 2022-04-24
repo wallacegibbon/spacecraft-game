@@ -1,9 +1,9 @@
 #ifndef __SCORE_H
 #define __SCORE_H
 
-#include <QGraphicsTextItem>
-#include <QGraphicsItem>
 #include "Airplane.h"
+#include <QGraphicsItem>
+#include <QGraphicsTextItem>
 
 class Score : public QGraphicsTextItem
 {

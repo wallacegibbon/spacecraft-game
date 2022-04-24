@@ -1,8 +1,8 @@
 #ifndef __STATIC_STUFF_H
 #define __STATIC_STUFF_H
 
-#include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
+#include <QGraphicsPixmapItem>
 
 class RandomStaticSmoke : public QGraphicsPixmapItem
 {

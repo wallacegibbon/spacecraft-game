@@ -1,9 +1,9 @@
 #ifndef __BULLET_H
 #define __BULLET_H
 
-#include <QGraphicsPixmapItem>
 #include "Airplane.h"
 #include "Enemy.h"
+#include <QGraphicsPixmapItem>
 
 class Bullet : public QObject, public QGraphicsPixmapItem
 {

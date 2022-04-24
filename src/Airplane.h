@@ -1,9 +1,9 @@
 #ifndef __MY_RECT_H
 #define __MY_RECT_H
 
+#include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
 #include <QMediaPlayer>
-#include <QGraphicsItem>
 #include <QPainter>
 #include <QTimer>
 
@@ -11,8 +11,10 @@ class Airplane : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 
+    // clang-format off
     enum Direction { Normal, Left, Right };
     enum Speed { Default, Fast, Slow };
+    // clang-format on
 
 public:
     Airplane(QGraphicsItem *parent = nullptr);

@@ -1,5 +1,5 @@
-#include <QDebug>
 #include "StaticExplosion.h"
+#include <QDebug>
 
 StaticExplosion::StaticExplosion(int _id, int _total_frames, QGraphicsItem *parent)
     : id(_id), total_frames(_total_frames), QObject(), QGraphicsPixmapItem(parent)

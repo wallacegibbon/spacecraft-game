@@ -1,10 +1,10 @@
-#include <QGraphicsScene>
-#include <QGraphicsItem>
-#include <QTimer>
-#include <QDebug>
 #include "Bullet.h"
-#include "Game.h"
 #include "Enemy.h"
+#include "Game.h"
+#include <QDebug>
+#include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QTimer>
 
 Bullet::Bullet(Airplane *_player) : player(_player)
 {

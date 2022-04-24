@@ -1,11 +1,11 @@
+#include "Enemy.h"
+#include "Airplane.h"
+#include "Game.h"
+#include "StaticExplosion.h"
+#include "common.h"
 #include <QGraphicsScene>
 #include <QRandomGenerator>
 #include <QTimer>
-#include "Game.h"
-#include "Enemy.h"
-#include "Airplane.h"
-#include "StaticExplosion.h"
-#include "common.h"
 
 extern Game *game;
 

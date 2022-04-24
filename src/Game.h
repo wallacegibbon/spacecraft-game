@@ -1,13 +1,13 @@
 #ifndef __GAME_H
 #define __GAME_H
 
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include <QMediaPlayer>
-#include <list>
 #include "Airplane.h"
 #include "Enemy.h"
 #include "Score.h"
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QMediaPlayer>
+#include <list>
 
 class Game : public QGraphicsScene
 {
