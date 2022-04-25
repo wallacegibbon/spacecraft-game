@@ -87,7 +87,7 @@ void Game::spawn_enemy()
     add_item_to_layer(enemy, layer_of_enemy);
     if (random_num > 4)
     {
-        add_static_item(new RandomStaticSmoke(), NumOfLayers - 2);
+        add_static_item(new RandomStaticDust(), NumOfLayers - 2);
     }
 }
 

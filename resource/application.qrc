@@ -52,12 +52,13 @@
         <file>image/bullet_0.png</file>
         <file>image/bullet_1.png</file>
         <file>image/bullet_2.png</file>
-        <file>image/smoke_0.png</file>
-        <file>image/smoke_1.png</file>
-        <file>image/smoke_2.png</file>
-        <file>image/smoke_3.png</file>
-        <file>image/smoke_4.png</file>
-        <file>image/smoke_5.png</file>
+        <file>image/dust_0.png</file>
+        <file>image/dust_1.png</file>
+        <file>image/dust_2.png</file>
+        <file>image/dust_3.png</file>
+        <file>image/dust_4.png</file>
+        <file>image/dust_5.png</file>
+        <file>image/dust_6.png</file>
         <file>image/enemy_0.png</file>
     </qresource>
 </RCC>

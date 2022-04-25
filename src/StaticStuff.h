@@ -4,14 +4,14 @@
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
 
-class RandomStaticSmoke : public QGraphicsPixmapItem
+class RandomStaticDust : public QGraphicsPixmapItem
 {
 public:
-    RandomStaticSmoke(QGraphicsItem *parent = nullptr);
+    RandomStaticDust(QGraphicsItem *parent = nullptr);
 
 private:
-    int smoke_id = 0;
-    int smoke_id_nums = 6;
+    int dust_id = 0;
+    int dust_id_nums = 7;
 };
 
 #endif
