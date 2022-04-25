@@ -174,6 +174,7 @@ bool Game::add_item_to_layer(QGraphicsItem *item, int layer_num)
         return false;
     }
     item->setParentItem(layers[layer_num]);
+    return true;
 }
 
 void Game::add_static_item(QGraphicsItem *item, int layer)

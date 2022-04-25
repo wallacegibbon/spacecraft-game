@@ -105,7 +105,7 @@ void Airplane::move_right(int distance)
 {
     direction = Right;
     draw();
-    if (x() + width() < scene()->width())
+    if (x() + width() < game->width())
     {
         setPos(x() + distance, y());
     }
@@ -125,7 +125,7 @@ void Airplane::move_down(int distance)
 {
     speed = Slow;
     draw();
-    if (y() < scene()->height() - height() - 10)
+    if (y() < game->height() - height() - 10)
     {
         setPos(x(), y() + distance);
     }

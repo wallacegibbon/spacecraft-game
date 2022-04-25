@@ -33,9 +33,9 @@ Enemy::Enemy(int _layer) : layer(_layer)
 void Enemy::move()
 {
     setPos(x(), y() + 5);
-    if (y() > scene()->height())
+    if (y() > game->height())
     {
-        scene()->removeItem(this);
+        game->removeItem(this);
         delete this;
     }
 }
@@ -52,6 +52,6 @@ void Enemy::handle_bullet_hit(Airplane *player)
     explosion->setPos(x(), y());
     game->add_static_item(explosion, layer);
 
-    scene()->removeItem(this);
+    game->removeItem(this);
     delete this;
 }

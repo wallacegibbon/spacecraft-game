@@ -6,6 +6,8 @@
 #include <QGraphicsScene>
 #include <QTimer>
 
+extern Game *game;
+
 Bullet::Bullet(Airplane *_player) : player(_player)
 {
     setPixmap(QPixmap(QString::asprintf(":/image/bullet_0.png")));
@@ -19,7 +21,7 @@ Bullet::Bullet(Airplane *_player) : player(_player)
 void Bullet::handle_hit(Enemy *enemy)
 {
     emit enemy->hit_by_bullet(player);
-    scene()->removeItem(this);
+    game->removeItem(this);
     delete this;
 }
 
@@ -39,9 +41,9 @@ int Bullet::check_hit_and_handle()
     return collided;
 }
 
-bool Bullet::out_of_scene()
+bool Bullet::should_be_destroyed()
 {
-    return (y() + height() < 0) || (y() > scene()->height()) || (x() + width() < 0) || (x() > scene()->width());
+    return (y() + height() < 0) || (y() > game->height()) || (x() + width() < 0) || (x() > game->width());
 }
 
 void Bullet::move()
@@ -52,9 +54,9 @@ void Bullet::move()
         return;
     }
     setPos(x(), y() - 15);
-    if (out_of_scene())
+    if (should_be_destroyed())
     {
-        scene()->removeItem(this);
+        game->removeItem(this);
         delete this;
     }
 }
