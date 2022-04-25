@@ -4,6 +4,7 @@
         <file>sound/explosion_1.wav</file>
         <file>sound/weapon_0.wav</file>
         <file>sound/bgm_0.ogg</file>
+        <file>image/background_0.png</file>
         <file>image/explosion_animation_0/0000.png</file>
         <file>image/explosion_animation_0/0001.png</file>
         <file>image/explosion_animation_0/0002.png</file>
@@ -54,6 +55,9 @@
         <file>image/smoke_0.png</file>
         <file>image/smoke_1.png</file>
         <file>image/smoke_2.png</file>
+        <file>image/smoke_3.png</file>
+        <file>image/smoke_4.png</file>
+        <file>image/smoke_5.png</file>
         <file>image/enemy_0.png</file>
     </qresource>
 </RCC>

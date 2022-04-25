@@ -3,6 +3,7 @@
 #include "StaticStuff.h"
 #include "common.h"
 #include <QBrush>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QImage>
@@ -33,7 +34,7 @@ Game::Game(int width, int height, QWidget *parent)
     bgm_sound->setPlaylist(bgm_playlist);
     bgm_sound->play();
 
-    // setBackgroundBrush(QBrush(QImage(":/image/bg_0.png")));
+    // setBackgroundBrush(QBrush(QImage(":/image/background_0.png")));
     setBackgroundBrush(QBrush(Qt::black));
 
     for (QGraphicsRectItem *&layer : layers)
@@ -41,6 +42,9 @@ Game::Game(int width, int height, QWidget *parent)
         layer = new QGraphicsRectItem();
         addItem(layer);
     }
+
+    QGraphicsPixmapItem *background_img = new QGraphicsPixmapItem(QPixmap(":/image/background_0.png"));
+    add_item_to_layer(background_img, 0);
 
     player = new Airplane();
     // player->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -81,7 +85,7 @@ void Game::spawn_enemy()
     int layer_of_enemy = random_num > 5 ? 1 : 3;
     Enemy *enemy = new Enemy(layer_of_enemy);
     add_item_to_layer(enemy, layer_of_enemy);
-    if (random_num > 6)
+    if (random_num > 4)
     {
         add_static_item(new RandomStaticSmoke(), NumOfLayers - 2);
     }

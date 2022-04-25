@@ -11,7 +11,7 @@ public:
 
 private:
     int smoke_id = 0;
-    int smoke_id_nums = 4;
+    int smoke_id_nums = 6;
 };
 
 #endif
