@@ -12,27 +12,27 @@ extern Game *game;
 Enemy::Enemy(int _layer) : layer(_layer)
 {
     connect(this, &Enemy::hit_by_bullet, this, &Enemy::handle_bullet_hit);
-    setPos(QRandomGenerator::global()->bounded(0, game->width()), 0);
-    speed = QRandomGenerator::global()->bounded(5, 50);
+    y_step = QRandomGenerator::global()->bounded(1, STATIC_Y_STEP + 5);
 
     QPixmap pixmap(":/image/enemy_0.png");
     setPixmap(pixmap);
     setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
-    if (speed > BASE_SPEED)
+    if (y_step > STATIC_Y_STEP)
     {
         setRotation(180);
     }
 
+    setPos(QRandomGenerator::global()->bounded(0, game->width()), -pixmap.height());
     score = 1;
 
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Enemy::move);
-    timer->start(interval_from_speed(speed));
+    timer->start(BASE_INTERVAL);
 }
 
 void Enemy::move()
 {
-    setPos(x(), y() + 5);
+    setPos(x(), y() + y_step);
     if (y() > game->height())
     {
         game->removeItem(this);

@@ -159,7 +159,7 @@ void Game::keyboard_handler()
     }
     if (down_hold && !up_hold)
     {
-        player->move_down(8);
+        player->move_down(STATIC_Y_STEP - 1);
     }
     if ((up_hold && down_hold) || (!up_hold && !down_hold))
     {
@@ -197,7 +197,7 @@ void Game::static_item_handler()
     while (it != static_items.end())
     {
         QGraphicsItem *item = *it;
-        item->setPos(item->x(), item->y() + 10);
+        item->setPos(item->x(), item->y() + STATIC_Y_STEP);
         if (item->y() > height())
         {
             it = static_items.erase(it);

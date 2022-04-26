@@ -29,7 +29,13 @@ public:
     static constexpr uint64_t Joystick_Shoot_1 = 1 << 4;
     static constexpr uint64_t Joystick_Shoot_2 = 1 << 5;
 
-    static constexpr int NumOfLayers = 5;
+    /*
+     * layer 0 for static background (far) static things;
+     * layer 1 and 3 for enemies;
+     * layer 2 for airplane;
+     * layer 4 (or 4+) for foreground (near) static things;
+     */
+    static constexpr int NumOfLayers = 6;
 
 private:
     void keyPressEvent(QKeyEvent *event) override;

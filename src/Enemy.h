@@ -21,7 +21,7 @@ signals:
     void hit_by_bullet(Airplane *player);
 
 private:
-    int speed;
+    int y_step;
     int score;
     int layer;
 };
