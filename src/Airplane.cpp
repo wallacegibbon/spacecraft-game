@@ -9,8 +9,7 @@ extern Game *game;
 
 Airplane::Airplane(QGraphicsItem *parent)
 {
-    bullet_sound = new QMediaPlayer(this, QMediaPlayer::LowLatency);
-    bullet_sound->setMedia(QUrl("qrc:/sound/weapon_0.wav"));
+    bullet_sound = new MyMediaPlayer("qrc:/sound/weapon_0.wav");
     draw();
 }
 
@@ -61,19 +60,7 @@ void Airplane::shoot()
     Bullet *new_bullet = new Bullet(this);
     new_bullet->setPos(x() + width() / 2 - new_bullet->width() / 2, y());
     game->add_item_to_layer(new_bullet, 1);
-    play_bullect_sound();
-}
-
-void Airplane::play_bullect_sound()
-{
-    if (bullet_sound->state() == QMediaPlayer::PlayingState)
-    {
-        bullet_sound->setPosition(0);
-    }
-    else if (bullet_sound->state() == QMediaPlayer::StoppedState)
-    {
-        bullet_sound->play();
-    }
+    bullet_sound->play();
 }
 
 void Airplane::backto_normal_direction()

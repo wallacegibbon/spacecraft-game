@@ -22,6 +22,7 @@ add_executable(${PRJ_NAME}
     src/Score.cpp
     src/StaticExplosion.cpp
     src/StaticStuff.cpp
+    src/MyMediaPlayer.cpp
 )
 
 target_link_libraries(${PRJ_NAME} PRIVATE Qt5::Widgets Qt5::Multimedia)

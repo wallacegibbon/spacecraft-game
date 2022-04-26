@@ -7,7 +7,6 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include <QMediaPlayer>
 #include <QTimer>
 #include <list>
 
@@ -57,8 +56,8 @@ private:
     Airplane *player;
     uint64_t player_ctrl = 0;
     Score *score;
-    QMediaPlayer *bgm_sound;
-    QMediaPlayer *explosion_sound;
+    MyMediaPlayer *bgm_sound;
+    MyMediaPlayer *explosion_sound;
     std::list<QGraphicsItem *> static_items;
     /* the bigger the number, the upper the layer */
     QGraphicsRectItem *layers[NumOfLayers];

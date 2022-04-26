@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "MyMediaPlayer.h"
 #include "Score.h"
 #include "StaticStuff.h"
 #include "common.h"
@@ -8,7 +9,6 @@
 #include <QGraphicsView>
 #include <QImage>
 #include <QKeyEvent>
-#include <QMediaPlayer>
 #include <QMediaPlaylist>
 #include <QRandomGenerator>
 #include <QTimer>
@@ -23,14 +23,13 @@ Game::Game(int width, int height, QWidget *parent)
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setFixedSize(width, height);
 
-    explosion_sound = new QMediaPlayer();
-    explosion_sound->setMedia(QUrl("qrc:/sound/explosion_0.wav"));
+    explosion_sound = new MyMediaPlayer("qrc:/sound/explosion_0.wav");
 
     QMediaPlaylist *bgm_playlist = new QMediaPlaylist();
     bgm_playlist->addMedia(QUrl("qrc:/sound/bgm_0.ogg"));
     bgm_playlist->setPlaybackMode(QMediaPlaylist::Loop);
 
-    bgm_sound = new QMediaPlayer();
+    bgm_sound = new MyMediaPlayer();
     bgm_sound->setPlaylist(bgm_playlist);
     bgm_sound->play();
 
@@ -97,14 +96,7 @@ void Game::update_score()
 
 void Game::play_enemy_explosion()
 {
-    if (explosion_sound->state() == QMediaPlayer::PlayingState)
-    {
-        explosion_sound->setPosition(0);
-    }
-    else if (explosion_sound->state() == QMediaPlayer::StoppedState)
-    {
-        explosion_sound->play();
-    }
+    explosion_sound->play();
 }
 
 uint64_t common_key_prepare(QKeyEvent *event)

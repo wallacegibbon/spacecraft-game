@@ -1,9 +1,9 @@
 #ifndef __MY_RECT_H
 #define __MY_RECT_H
 
+#include "MyMediaPlayer.h"
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
-#include <QMediaPlayer>
 #include <QPainter>
 
 class Airplane : public QObject, public QGraphicsPixmapItem
@@ -33,7 +33,6 @@ public:
     void shoot();
 
 private:
-    void play_bullect_sound();
     QString body_image_url();
     QString speed_image_url();
     void draw();
@@ -48,7 +47,7 @@ private:
     int flame_offset = -16;
     Direction direction = Normal;
     Speed speed = Default;
-    QMediaPlayer *bullet_sound;
+    MyMediaPlayer *bullet_sound;
 };
 
 #endif
