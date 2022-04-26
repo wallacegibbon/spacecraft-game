@@ -3,7 +3,6 @@
 
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
-#include <QTimer>
 
 class StaticExplosion : public QObject, public QGraphicsPixmapItem
 {
@@ -22,7 +21,6 @@ private:
     int current_frame = 0;
     int v_width = 0;
     int v_height = 0;
-    QTimer *animation_timer;
 };
 
 class StaticExplosion_0 : public StaticExplosion

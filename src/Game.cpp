@@ -58,18 +58,17 @@ Game::Game(int width, int height, QWidget *parent)
     connect(this, &Game::score_change, this, &Game::update_score);
     connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
 
+    refresh_timer = new QTimer(this);
+    refresh_timer->start(BASE_INTERVAL);
+
+    connect(refresh_timer, &QTimer::timeout, this, &Game::static_item_handler);
+    connect(refresh_timer, &QTimer::timeout, this, &Game::keyboard_handler);
+
     QTimer *enemy_timer = new QTimer(this);
-    // QObject::connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
-    connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
     enemy_timer->start(1200);
 
-    QTimer *keyboard_timer = new QTimer(this);
-    connect(keyboard_timer, &QTimer::timeout, this, &Game::keyboard_handler);
-    keyboard_timer->start(50);
-
-    QTimer *static_item_timer = new QTimer(this);
-    connect(static_item_timer, &QTimer::timeout, this, &Game::static_item_handler);
-    static_item_timer->start(BASE_INTERVAL);
+    // QObject::connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
+    connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
 }
 
 void Game::show()

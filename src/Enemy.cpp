@@ -25,9 +25,7 @@ Enemy::Enemy(int _layer) : layer(_layer)
     setPos(QRandomGenerator::global()->bounded(0, game->width()), -pixmap.height());
     score = 1;
 
-    QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &Enemy::move);
-    timer->start(BASE_INTERVAL);
+    connect(game->get_refresh_timer(), &QTimer::timeout, this, &Enemy::move);
 }
 
 void Enemy::move()

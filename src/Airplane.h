@@ -5,7 +5,6 @@
 #include <QGraphicsPixmapItem>
 #include <QMediaPlayer>
 #include <QPainter>
-#include <QTimer>
 
 class Airplane : public QObject, public QGraphicsPixmapItem
 {
@@ -50,9 +49,6 @@ private:
     Direction direction = Normal;
     Speed speed = Default;
     QMediaPlayer *bullet_sound;
-
-    /* the Game keyboard handler will trigger the refresh */
-    // QTimer *refresh_timer;
 };
 
 #endif

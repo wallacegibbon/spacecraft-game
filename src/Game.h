@@ -8,6 +8,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QMediaPlayer>
+#include <QTimer>
 #include <list>
 
 class Game : public QGraphicsScene
@@ -20,6 +21,7 @@ public:
     Airplane *get_player() { return player; }
     void add_static_item(QGraphicsItem *item, int layer);
     bool add_item_to_layer(QGraphicsItem *item, int layer_num);
+    QTimer *get_refresh_timer() { return refresh_timer; }
 
     static constexpr uint64_t Joystick_Empty_Command = 0;
     static constexpr uint64_t Joystick_Move_Left = 1;
@@ -60,6 +62,7 @@ private:
     std::list<QGraphicsItem *> static_items;
     /* the bigger the number, the upper the layer */
     QGraphicsRectItem *layers[NumOfLayers];
+    QTimer *refresh_timer;
 };
 
 #endif

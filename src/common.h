@@ -1,6 +1,8 @@
 #ifndef __COMMON_H
 #define __COMMON_H
 
+#include <cmath>
+
 constexpr int interval_from_speed(int speed)
 {
     return 1000 / speed;
@@ -15,6 +17,11 @@ template <typename T>
 inline T max(T a, T b)
 {
     return a > b ? a : b;
+}
+
+inline double hypotenuse(double a, double b)
+{
+    return std::sqrt(a * a + b * b);
 }
 
 #endif

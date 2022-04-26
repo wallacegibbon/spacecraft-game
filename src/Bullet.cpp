@@ -11,11 +11,7 @@ extern Game *game;
 Bullet::Bullet(Airplane *_player) : player(_player)
 {
     setPixmap(QPixmap(QString::asprintf(":/image/bullet_0.png")));
-
-    QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &Bullet::move);
-
-    timer->start(50);
+    connect(game->get_refresh_timer(), &QTimer::timeout, this, &Bullet::move);
 }
 
 void Bullet::handle_hit(Enemy *enemy)

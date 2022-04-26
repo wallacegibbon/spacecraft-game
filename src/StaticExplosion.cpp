@@ -1,19 +1,20 @@
 #include "StaticExplosion.h"
+#include "Game.h"
 #include <QDebug>
+#include <QTimer>
+
+extern Game *game;
 
 StaticExplosion::StaticExplosion(int _id, int _total_frames, QGraphicsItem *parent)
     : id(_id), total_frames(_total_frames), QObject(), QGraphicsPixmapItem(parent)
 {
-    animation_timer = new QTimer(this);
-    connect(animation_timer, &QTimer::timeout, this, &StaticExplosion::animation_update);
-    animation_timer->start(50);
+    connect(game->get_refresh_timer(), &QTimer::timeout, this, &StaticExplosion::animation_update);
 }
 
 void StaticExplosion::animation_update()
 {
     if (current_frame >= total_frames)
     {
-        animation_timer->stop();
         return;
     }
     set_animation_image(current_frame++);
