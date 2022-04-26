@@ -23,13 +23,13 @@ Game::Game(int width, int height, QWidget *parent)
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setFixedSize(width, height);
 
-    explosion_sound = new CuteSoundPlayer("qrc:/sound/explosion_0.wav");
+    explosion_sound = new CuteSoundPlayer("qrc:/sound/explosion_0.wav", this);
 
     QMediaPlaylist *bgm_playlist = new QMediaPlaylist();
     bgm_playlist->addMedia(QUrl("qrc:/sound/bgm_0.ogg"));
     bgm_playlist->setPlaybackMode(QMediaPlaylist::Loop);
 
-    bgm_sound = new CuteSoundPlayer();
+    bgm_sound = new CuteSoundPlayer(this);
     bgm_sound->setPlaylist(bgm_playlist);
     bgm_sound->play();
 
