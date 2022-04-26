@@ -9,7 +9,7 @@ extern Game *game;
 
 Airplane::Airplane(QGraphicsItem *parent)
 {
-    bullet_sound = new MyMediaPlayer("qrc:/sound/weapon_0.wav");
+    bullet_sound = new CuteSoundPlayer("qrc:/sound/weapon_0.wav");
     draw();
 }
 

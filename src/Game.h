@@ -56,8 +56,8 @@ private:
     Airplane *player;
     uint64_t player_ctrl = 0;
     Score *score;
-    MyMediaPlayer *bgm_sound;
-    MyMediaPlayer *explosion_sound;
+    CuteSoundPlayer *bgm_sound;
+    CuteSoundPlayer *explosion_sound;
     std::list<QGraphicsItem *> static_items;
     /* the bigger the number, the upper the layer */
     QGraphicsRectItem *layers[NumOfLayers];

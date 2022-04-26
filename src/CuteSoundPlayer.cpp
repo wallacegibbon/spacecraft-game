@@ -1,11 +1,11 @@
-#include "MyMediaPlayer.h"
+#include "CuteSoundPlayer.h"
 
-MyMediaPlayer::MyMediaPlayer(QString media_url, QObject *parent) : QMediaPlayer(parent, QMediaPlayer::LowLatency)
+CuteSoundPlayer::CuteSoundPlayer(QString media_url, QObject *parent) : QMediaPlayer(parent, QMediaPlayer::LowLatency)
 {
     setMedia(QUrl(media_url));
 }
 
-void MyMediaPlayer::play()
+void CuteSoundPlayer::play()
 {
     if (state() == QMediaPlayer::PlayingState)
     {

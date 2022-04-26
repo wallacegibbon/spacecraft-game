@@ -1,7 +1,7 @@
 #ifndef __MY_RECT_H
 #define __MY_RECT_H
 
-#include "MyMediaPlayer.h"
+#include "CuteSoundPlayer.h"
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
 #include <QPainter>
@@ -47,7 +47,7 @@ private:
     int flame_offset = -16;
     Direction direction = Normal;
     Speed speed = Default;
-    MyMediaPlayer *bullet_sound;
+    CuteSoundPlayer *bullet_sound;
 };
 
 #endif
