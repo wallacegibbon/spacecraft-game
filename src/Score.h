@@ -3,16 +3,18 @@
 
 #include "Airplane.h"
 #include <QGraphicsItem>
+#include <QGraphicsRectItem>
 #include <QGraphicsTextItem>
 
-class Score : public QGraphicsTextItem
+class Score : public QGraphicsRectItem
 {
 public:
     Score(Airplane *_player);
     void update_score_display();
 
+private:
     Airplane *player;
-    int score;
+    QGraphicsTextItem *score;
 };
 
 #endif

@@ -114,6 +114,7 @@ void Game::start_game()
     }
     clear_static_items();
     clear();
+    ui_board = nullptr;
     init_layers();
 
     player = new Airplane();
