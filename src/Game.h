@@ -62,7 +62,8 @@ private:
     void clear_static_items();
     void display_main_menu();
     void display_replay_menu();
-    void prepare_ui_board();
+    void prepare_common_dialog();
+    void cleanup();
 
 signals:
     void score_change();
@@ -79,7 +80,7 @@ private:
     std::list<QGraphicsItem *> static_items;
     /* the bigger the number, the upper the layer */
     QGraphicsRectItem *layers[NumOfLayers];
-    QGraphicsRectItem *ui_board = nullptr;
+    QGraphicsRectItem *common_dialog = nullptr;
     QTimer *refresh_timer;
     QTimer *enemy_creating_timer;
     int enemy_creating_interval = 1200;

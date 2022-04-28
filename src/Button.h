@@ -14,6 +14,9 @@ public:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
 
+    /* this one doesn't work */
+    void keyPressEvent(QKeyEvent *event) override;
+
 signals:
     void clicked();
 

@@ -1,5 +1,8 @@
 #include "Button.h"
 #include <QBrush>
+#include <QGraphicsRectItem>
+#include <QKeyEvent>
+#include <QDebug>
 
 Button::Button(QString _text, QGraphicsItem *parent) : QGraphicsRectItem(parent)
 {
@@ -11,11 +14,21 @@ Button::Button(QString _text, QGraphicsItem *parent) : QGraphicsRectItem(parent)
 
     setAcceptHoverEvents(true);
     setBrush(QBrush(Qt::darkCyan));
+
+    setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
 void Button::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     emit clicked();
+}
+
+void Button::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Enter)
+    {
+        emit clicked();
+    }
 }
 
 void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)

@@ -60,50 +60,72 @@ Game::Game(int width, int height, QWidget *parent)
     display_main_menu();
 }
 
-void Game::prepare_ui_board()
+void Game::prepare_common_dialog()
 {
-    if (ui_board != nullptr)
+    if (common_dialog != nullptr)
     {
-        delete ui_board;
+        delete common_dialog;
     }
-    ui_board = new QGraphicsRectItem();
-    ui_board->setRect(0, 0, 500, 300);
-    ui_board->setPos((width() - 500) / 2, (height() - 300) / 2);
-    ui_board->setBrush(QBrush(Qt::lightGray));
-    addItem(ui_board);
+    common_dialog = new QGraphicsRectItem();
+    common_dialog->setRect(0, 0, 500, 300);
+    common_dialog->setPos((width() - 500) / 2, (height() - 300) / 2);
+    common_dialog->setBrush(QBrush(Qt::lightGray));
+    addItem(common_dialog);
 }
 
 void Game::display_main_menu()
 {
-    prepare_ui_board();
-    QGraphicsTextItem *title = new QGraphicsTextItem(QString("Airplane Game"), ui_board);
+    prepare_common_dialog();
+    QGraphicsTextItem *title = new QGraphicsTextItem(QString("Airplane Game"), common_dialog);
     title->setFont(QFont("sans", 18));
-    title->setPos((ui_board->rect().width() - title->boundingRect().width()) / 2, 50);
+    title->setPos((common_dialog->rect().width() - title->boundingRect().width()) / 2, 50);
 
-    Button *play_button = new Button("Play", ui_board);
-    play_button->setPos((ui_board->rect().width() - play_button->boundingRect().width()) / 2, 130);
+    Button *play_button = new Button("Play", common_dialog);
+    play_button->setPos((common_dialog->rect().width() - play_button->boundingRect().width()) / 2, 130);
     connect(play_button, &Button::clicked, this, &Game::start_game);
 
-    Button *quit_button = new Button("Quit", ui_board);
-    quit_button->setPos((ui_board->rect().width() - quit_button->boundingRect().width()) / 2, 190);
+    play_button->setFocus();
+
+    Button *quit_button = new Button("Quit", common_dialog);
+    quit_button->setPos((common_dialog->rect().width() - quit_button->boundingRect().width()) / 2, 190);
     connect(quit_button, &Button::clicked, view, &QGraphicsView::close);
 }
 
 void Game::display_replay_menu()
 {
-    prepare_ui_board();
+    prepare_common_dialog();
     QString end_text = QString("Game Over, your score: %1").arg(player->get_score());
-    QGraphicsTextItem *title = new QGraphicsTextItem(end_text, ui_board);
+    QGraphicsTextItem *title = new QGraphicsTextItem(end_text, common_dialog);
     title->setFont(QFont("sans", 18));
-    title->setPos((ui_board->rect().width() - title->boundingRect().width()) / 2, 50);
+    title->setPos((common_dialog->rect().width() - title->boundingRect().width()) / 2, 50);
 
-    Button *play_button = new Button(QString("Re-Play"), ui_board);
-    play_button->setPos((ui_board->rect().width() - play_button->boundingRect().width()) / 2, 130);
-    connect(play_button, &Button::clicked, this, &Game::start_game);
+    Button *replay_button = new Button(QString("Re-Play"), common_dialog);
+    replay_button->setPos((common_dialog->rect().width() - replay_button->boundingRect().width()) / 2, 130);
+    connect(replay_button, &Button::clicked, this, &Game::start_game);
 
-    Button *quit_button = new Button(QString("Quit"), ui_board);
-    quit_button->setPos((ui_board->rect().width() - quit_button->boundingRect().width()) / 2, 190);
+    replay_button->setFocus();
+
+    Button *quit_button = new Button(QString("Quit"), common_dialog);
+    quit_button->setPos((common_dialog->rect().width() - quit_button->boundingRect().width()) / 2, 190);
     connect(quit_button, &Button::clicked, view, &QGraphicsView::close);
+}
+
+void Game::cleanup()
+{
+    clear();
+    /* Items inside static_items will also be cleared by `clear()`. Just clean up std::list here will be ok */
+    static_items.clear();
+
+    /*
+    `Game::stop_game` will not call `clear()`, which means common_dialog should be freed by hand.
+    (for now, it is done in `Game::prepare_common_dialog`)
+
+    `Game::prepare_common_dialog` will check whether the `common_dialog` should be freed by checking
+    it against with nullptr.
+
+    So this step is really important
+    */
+    common_dialog = nullptr;
 }
 
 void Game::start_game()
@@ -112,25 +134,10 @@ void Game::start_game()
     {
         return;
     }
-    clear_static_items();
-    clear();
-
-    /*
-    `Game::stop_game` will not call `clear()`, which means ui_board should be free by hand.
-    (for now, it is done in `Game::prepare_ui_board`)
-
-    `Game::prepare_ui_board` will check whether the `ui_board` should be freed
-    by checking it against with nullptr.
-
-    So this step is really important
-    */
-    ui_board = nullptr;
-
+    cleanup();
     init_layers();
 
     player = new Airplane();
-    // player->setFlag(QGraphicsItem::ItemIsFocusable);
-    // player->setFocus();
     player->setPos(view->width() / 2 - player->width() / 2, view->height() - player->height() - 10);
     add_item_to_layer(player, 2);
 
