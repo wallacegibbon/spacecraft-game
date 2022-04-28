@@ -114,7 +114,18 @@ void Game::start_game()
     }
     clear_static_items();
     clear();
+
+    /*
+    `Game::stop_game` will not call `clear()`, which means ui_board should be free by hand.
+    (for now, it is done in `Game::prepare_ui_board`)
+
+    `Game::prepare_ui_board` will check whether the `ui_board` should be freed
+    by checking it against with nullptr.
+
+    So this step is really important
+    */
     ui_board = nullptr;
+
     init_layers();
 
     player = new Airplane();
