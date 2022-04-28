@@ -75,7 +75,7 @@ void Game::display_main_menu()
 {
     prepare_ui_board();
     QGraphicsTextItem *title = new QGraphicsTextItem(QString("Airplane Game"), ui_board);
-    title->setFont(QFont("sans", 20));
+    title->setFont(QFont("sans", 18));
     title->setPos((ui_board->rect().width() - title->boundingRect().width()) / 2, 50);
 
     Button *play_button = new Button("Play", ui_board);
@@ -90,8 +90,9 @@ void Game::display_main_menu()
 void Game::display_replay_menu()
 {
     prepare_ui_board();
-    QGraphicsTextItem *title = new QGraphicsTextItem(QString("Game Over"), ui_board);
-    title->setFont(QFont("sans", 20));
+    QString end_text = QString::asprintf("Game Over, your score: %d\n", player->get_score());
+    QGraphicsTextItem *title = new QGraphicsTextItem(end_text, ui_board);
+    title->setFont(QFont("sans", 18));
     title->setPos((ui_board->rect().width() - title->boundingRect().width()) / 2, 50);
 
     Button *play_button = new Button("Re-Play", ui_board);

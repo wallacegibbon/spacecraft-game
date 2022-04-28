@@ -10,6 +10,7 @@ Button::Button(QString _text, QGraphicsItem *parent) : QGraphicsRectItem(parent)
     text->setPos(x, y);
 
     setAcceptHoverEvents(true);
+    setBrush(QBrush(Qt::darkCyan));
 }
 
 void Button::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -17,6 +18,12 @@ void Button::mousePressEvent(QGraphicsSceneMouseEvent *event)
     emit clicked();
 }
 
-void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event) {}
+void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+    setBrush(QBrush(Qt::cyan));
+}
 
-void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event) {}
+void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+    setBrush(QBrush(Qt::darkCyan));
+}
