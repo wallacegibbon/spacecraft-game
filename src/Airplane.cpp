@@ -24,6 +24,19 @@ void Airplane::draw()
     painter.drawPixmap(0, 0, body);
     setPixmap(full);
     update_flame_cnt();
+    check_hit();
+}
+
+void Airplane::check_hit()
+{
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    for (QGraphicsItem *item : colliding_items)
+    {
+        if (typeid(*item) == typeid(Enemy))
+        {
+            emit game->stop();
+        }
+    }
 }
 
 QString Airplane::body_image_url()

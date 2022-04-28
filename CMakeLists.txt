@@ -23,6 +23,8 @@ add_executable(${PRJ_NAME}
     src/StaticExplosion.cpp
     src/StaticStuff.cpp
     src/CuteSoundPlayer.cpp
+    src/CircleAudioPlayer.cpp
+    src/Button.cpp
 )
 
 target_link_libraries(${PRJ_NAME} PRIVATE Qt5::Widgets Qt5::Multimedia)

@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Button.h"
+#include "CircleAudioPlayer.h"
 #include "CuteSoundPlayer.h"
 #include "Score.h"
 #include "StaticStuff.h"
@@ -6,9 +8,11 @@
 #include <QBrush>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include <QGraphicsTextItem>
 #include <QGraphicsView>
 #include <QImage>
 #include <QKeyEvent>
+#include <QMediaPlayer>
 #include <QMediaPlaylist>
 #include <QRandomGenerator>
 #include <QTimer>
@@ -24,26 +28,90 @@ Game::Game(int width, int height, QWidget *parent)
     view->setFixedSize(width, height);
 
     explosion_sound = new CuteSoundPlayer("qrc:/sound/explosion_0.wav", this);
-
-    QMediaPlaylist *bgm_playlist = new QMediaPlaylist();
-    bgm_playlist->addMedia(QUrl("qrc:/sound/bgm_0.ogg"));
-    bgm_playlist->setPlaybackMode(QMediaPlaylist::Loop);
-
-    bgm_sound = new CuteSoundPlayer(this);
-    bgm_sound->setPlaylist(bgm_playlist);
-    bgm_sound->play();
+    bgm_sound = new CircleAudioPlayer("qrc:/sound/bgm_0.ogg", this);
 
     // setBackgroundBrush(QBrush(QImage(":/image/background_0.png")));
     setBackgroundBrush(QBrush(Qt::black));
 
-    for (QGraphicsRectItem *&layer : layers)
-    {
-        layer = new QGraphicsRectItem();
-        addItem(layer);
-    }
+    init_layers();
 
-    QGraphicsPixmapItem *background_img = new QGraphicsPixmapItem(QPixmap(":/image/background_0.png"));
-    add_item_to_layer(background_img, 0);
+    // QGraphicsPixmapItem *background_img = new QGraphicsPixmapItem(QPixmap(":/image/background_0.png"));
+    // add_item_to_layer(background_img, 0);
+
+    connect(this, &Game::score_change, this, &Game::update_score);
+    connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
+    connect(this, &Game::start, this, &Game::start_game);
+    connect(this, &Game::stop, this, &Game::stop_game);
+
+    refresh_timer = new QTimer(this);
+    enemy_creating_timer = new QTimer(this);
+
+    connect(refresh_timer, &QTimer::timeout, this, &Game::static_item_handler);
+    connect(refresh_timer, &QTimer::timeout, this, &Game::keyboard_handler);
+
+    // QObject::connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
+    connect(enemy_creating_timer, &QTimer::timeout, this, &Game::spawn_enemy);
+
+    // view->showFullScreen();
+    view->show();
+
+    display_main_menu();
+}
+
+void Game::prepare_ui_board()
+{
+    if (ui_board != nullptr)
+    {
+        delete ui_board;
+    }
+    ui_board = new QGraphicsRectItem();
+    ui_board->setRect(0, 0, 500, 300);
+    ui_board->setPos((width() - 500) / 2, (height() - 300) / 2);
+    ui_board->setBrush(QBrush(Qt::lightGray));
+    addItem(ui_board);
+}
+
+void Game::display_main_menu()
+{
+    prepare_ui_board();
+    QGraphicsTextItem *title = new QGraphicsTextItem(QString("Airplane Game"), ui_board);
+    title->setFont(QFont("sans", 20));
+    title->setPos((ui_board->rect().width() - title->boundingRect().width()) / 2, 50);
+
+    Button *play_button = new Button("Play", ui_board);
+    play_button->setPos((ui_board->rect().width() - play_button->boundingRect().width()) / 2, 130);
+    connect(play_button, &Button::clicked, this, &Game::start_game);
+
+    Button *quit_button = new Button("Quit", ui_board);
+    quit_button->setPos((ui_board->rect().width() - quit_button->boundingRect().width()) / 2, 190);
+    connect(quit_button, &Button::clicked, view, &QGraphicsView::close);
+}
+
+void Game::display_replay_menu()
+{
+    prepare_ui_board();
+    QGraphicsTextItem *title = new QGraphicsTextItem(QString("Game Over"), ui_board);
+    title->setFont(QFont("sans", 20));
+    title->setPos((ui_board->rect().width() - title->boundingRect().width()) / 2, 50);
+
+    Button *play_button = new Button("Re-Play", ui_board);
+    play_button->setPos((ui_board->rect().width() - play_button->boundingRect().width()) / 2, 130);
+    connect(play_button, &Button::clicked, this, &Game::start_game);
+
+    Button *quit_button = new Button("Quit", ui_board);
+    quit_button->setPos((ui_board->rect().width() - quit_button->boundingRect().width()) / 2, 190);
+    connect(quit_button, &Button::clicked, view, &QGraphicsView::close);
+}
+
+void Game::start_game()
+{
+    if (status == Running)
+    {
+        return;
+    }
+    clear_static_items();
+    clear();
+    init_layers();
 
     player = new Airplane();
     // player->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -54,26 +122,33 @@ Game::Game(int width, int height, QWidget *parent)
     score = new Score(player);
     add_item_to_layer(score, NumOfLayers - 1);
 
-    connect(this, &Game::score_change, this, &Game::update_score);
-    connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
-
-    refresh_timer = new QTimer(this);
     refresh_timer->start(BASE_INTERVAL);
+    enemy_creating_timer->start(enemy_creating_interval);
 
-    connect(refresh_timer, &QTimer::timeout, this, &Game::static_item_handler);
-    connect(refresh_timer, &QTimer::timeout, this, &Game::keyboard_handler);
-
-    QTimer *enemy_timer = new QTimer(this);
-    enemy_timer->start(1200);
-
-    // QObject::connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
-    connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
+    bgm_sound->play();
+    status = Running;
 }
 
-void Game::show()
+void Game::stop_game()
 {
-    // view->showFullScreen();
-    view->show();
+    if (status == Stopped)
+    {
+        return;
+    }
+    status = Stopped;
+    bgm_sound->stop();
+    refresh_timer->stop();
+    enemy_creating_timer->stop();
+    display_replay_menu();
+}
+
+void Game::init_layers()
+{
+    for (QGraphicsRectItem *&layer : layers)
+    {
+        layer = new QGraphicsRectItem();
+        addItem(layer);
+    }
 }
 
 void Game::spawn_enemy()
@@ -99,31 +174,31 @@ void Game::play_enemy_explosion()
     explosion_sound->play();
 }
 
-uint64_t common_key_prepare(QKeyEvent *event)
+uint64_t Game::common_key_prepare(QKeyEvent *event)
 {
     if (event->isAutoRepeat())
     {
-        return Game::Joystick_Empty_Command;
+        return Joystick_Empty_Command;
     }
     switch (event->key())
     {
     case Qt::Key_Left:
     case Qt::Key_A:
-        return Game::Joystick_Move_Left;
+        return Joystick_Move_Left;
     case Qt::Key_Right:
     case Qt::Key_D:
-        return Game::Joystick_Move_Right;
+        return Joystick_Move_Right;
     case Qt::Key_Up:
     case Qt::Key_W:
-        return Game::Joystick_Move_Up;
+        return Joystick_Move_Up;
     case Qt::Key_Down:
     case Qt::Key_S:
-        return Game::Joystick_Move_Down;
+        return Joystick_Move_Down;
     case Qt::Key_Space:
     case Qt::Key_F:
-        return Game::Joystick_Shoot_1;
+        return Joystick_Shoot_1;
     default:
-        return Game::Joystick_Empty_Command;
+        return Joystick_Empty_Command;
     }
 }
 
@@ -211,4 +286,14 @@ void Game::static_item_handler()
             it++;
         }
     }
+}
+
+void Game::clear_static_items()
+{
+    for (QGraphicsItem *item : static_items)
+    {
+        removeItem(item);
+        delete item;
+    }
+    static_items.clear();
 }

@@ -37,6 +37,7 @@ private:
     QString speed_image_url();
     void draw();
     void update_flame_cnt();
+    void check_hit();
 
 private:
     int score = 0;
