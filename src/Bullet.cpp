@@ -10,7 +10,7 @@ extern Game *game;
 
 Bullet::Bullet(Airplane *_player) : player(_player)
 {
-    setPixmap(QPixmap(QString::asprintf(":/image/bullet_0.png")));
+    setPixmap(QPixmap(QString(":/image/bullet_0.png")));
     connect(game->get_refresh_timer(), &QTimer::timeout, this, &Bullet::move);
 }
 

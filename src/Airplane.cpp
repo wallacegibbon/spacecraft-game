@@ -44,11 +44,11 @@ QString Airplane::body_image_url()
     switch (direction)
     {
     case Left:
-        return QString::asprintf(":/image/airplane_%d/left.png", airplane_id);
+        return QString(":/image/airplane_%1/left.png").arg(airplane_id);
     case Right:
-        return QString::asprintf(":/image/airplane_%d/right.png", airplane_id);
+        return QString(":/image/airplane_%1/right.png").arg(airplane_id);
     default:
-        return QString::asprintf(":/image/airplane_%d/normal.png", airplane_id);
+        return QString(":/image/airplane_%1/normal.png").arg(airplane_id);
     }
 }
 
@@ -57,11 +57,11 @@ QString Airplane::speed_image_url()
     switch (speed)
     {
     case Fast:
-        return QString::asprintf(":/image/rocket_flame_%d/fast_%d.png", flame_id, flame_cnt);
+        return QString(":/image/rocket_flame_%1/fast_%2.png").arg(flame_id).arg(flame_cnt);
     case Slow:
-        return QString::asprintf(":/image/rocket_flame_%d/slow_%d.png", flame_id, flame_cnt);
+        return QString(":/image/rocket_flame_%1/slow_%2.png").arg(flame_id).arg(flame_cnt);
     default:
-        return QString::asprintf(":/image/rocket_flame_%d/normal_%d.png", flame_id, flame_cnt);
+        return QString(":/image/rocket_flame_%1/normal_%2.png").arg(flame_id).arg(flame_cnt);
     }
 }
 

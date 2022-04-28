@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>sound/explosion_0.wav</file>
         <file>sound/explosion_1.wav</file>
+        <file>sound/explosion_2.wav</file>
         <file>sound/weapon_0.wav</file>
         <file>sound/bgm_0.ogg</file>
         <file>image/background_0.png</file>

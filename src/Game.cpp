@@ -27,7 +27,9 @@ Game::Game(int width, int height, QWidget *parent)
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setFixedSize(width, height);
 
-    explosion_sound = new CuteSoundPlayer("qrc:/sound/explosion_0.wav", this);
+    explosion_sound_1 = new CuteSoundPlayer("qrc:/sound/explosion_1.wav", this);
+    explosion_sound_2 = new CuteSoundPlayer("qrc:/sound/explosion_2.wav", this);
+
     bgm_sound = new CircleAudioPlayer("qrc:/sound/bgm_0.ogg", this);
 
     // setBackgroundBrush(QBrush(QImage(":/image/background_0.png")));
@@ -90,16 +92,16 @@ void Game::display_main_menu()
 void Game::display_replay_menu()
 {
     prepare_ui_board();
-    QString end_text = QString::asprintf("Game Over, your score: %d\n", player->get_score());
+    QString end_text = QString("Game Over, your score: %1").arg(player->get_score());
     QGraphicsTextItem *title = new QGraphicsTextItem(end_text, ui_board);
     title->setFont(QFont("sans", 18));
     title->setPos((ui_board->rect().width() - title->boundingRect().width()) / 2, 50);
 
-    Button *play_button = new Button("Re-Play", ui_board);
+    Button *play_button = new Button(QString("Re-Play"), ui_board);
     play_button->setPos((ui_board->rect().width() - play_button->boundingRect().width()) / 2, 130);
     connect(play_button, &Button::clicked, this, &Game::start_game);
 
-    Button *quit_button = new Button("Quit", ui_board);
+    Button *quit_button = new Button(QString("Quit"), ui_board);
     quit_button->setPos((ui_board->rect().width() - quit_button->boundingRect().width()) / 2, 190);
     connect(quit_button, &Button::clicked, view, &QGraphicsView::close);
 }
@@ -140,6 +142,7 @@ void Game::stop_game()
     bgm_sound->stop();
     refresh_timer->stop();
     enemy_creating_timer->stop();
+    explosion_sound_2->play();
     display_replay_menu();
 }
 
@@ -172,7 +175,7 @@ void Game::update_score()
 
 void Game::play_enemy_explosion()
 {
-    explosion_sound->play();
+    explosion_sound_1->play();
 }
 
 uint64_t Game::common_key_prepare(QKeyEvent *event)

@@ -74,7 +74,8 @@ private:
     Score *score = nullptr;
     uint64_t player_ctrl = 0;
     CircleAudioPlayer *bgm_sound;
-    CuteSoundPlayer *explosion_sound;
+    CuteSoundPlayer *explosion_sound_1;
+    CuteSoundPlayer *explosion_sound_2;
     std::list<QGraphicsItem *> static_items;
     /* the bigger the number, the upper the layer */
     QGraphicsRectItem *layers[NumOfLayers];

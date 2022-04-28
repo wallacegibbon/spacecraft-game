@@ -28,7 +28,7 @@ void StaticExplosion::set_v_size(int x, int y)
 
 void StaticExplosion::set_animation_image(int index)
 {
-    QPixmap pixmap(QString::asprintf(":/image/explosion_animation_%d/%04d.png", id, index));
+    QPixmap pixmap(QString(":/image/explosion_animation_%1/%2.png").arg(id).arg(index, 4, 10, QLatin1Char('0')));
     int x = (v_width - pixmap.size().width()) / 2;
     int y = (v_height - pixmap.size().height()) / 2;
     setOffset(x, y);

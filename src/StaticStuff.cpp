@@ -11,7 +11,7 @@ RandomStaticDust::RandomStaticDust(QGraphicsItem *parent) : QGraphicsPixmapItem(
     /* rotation angle bigger than 90 degree will make the out-of-view-checking complex */
     int random_angle = QRandomGenerator::global()->bounded(0, 90);
     dust_id = random_angle % dust_id_nums;
-    QPixmap pixmap(QString::asprintf(":/image/dust_%d", dust_id));
+    QPixmap pixmap(QString(":/image/dust_%1").arg(dust_id));
     setPixmap(pixmap);
     int y_offset = -max(hypotenuse(boundingRect().height(), boundingRect().width()), game->height());
     setPos(QRandomGenerator::global()->bounded(0, game->width() + 60) - 30, y_offset);
