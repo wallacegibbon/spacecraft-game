@@ -26,6 +26,7 @@ add_executable(${PRJ_NAME}
     src/CuteSoundPlayer.cpp
     src/CircleAudioPlayer.cpp
     src/Button.cpp
+    src/LifeBar.cpp
 )
 
 target_link_libraries(${PRJ_NAME} PRIVATE Qt5::Widgets Qt5::Multimedia)

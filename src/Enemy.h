@@ -1,11 +1,13 @@
 #ifndef __ENEMY_H
 #define __ENEMY_H
 
+#include "LifeBar.h"
 #include <QGraphicsPixmapItem>
+#include <QGraphicsRectItem>
 
 class Airplane;
 
-class Enemy : public QObject, public QGraphicsPixmapItem
+class Enemy : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 
@@ -21,6 +23,8 @@ signals:
     void hit_by_bullet(Airplane *player, int damage);
 
 private:
+    QGraphicsPixmapItem *body;
+    LifeBar *life_bar;
     QString image;
     int life;
     int pay;
