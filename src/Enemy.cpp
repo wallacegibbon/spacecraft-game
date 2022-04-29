@@ -9,7 +9,7 @@
 
 extern Game *game;
 
-Enemy::Enemy(QString _image, int _layer) : image(_image), layer(_layer)
+Enemy::Enemy(QString _image, int _life, int _pay, int _layer) : image(_image), life(_life), pay(_pay), layer(_layer)
 {
     connect(this, &Enemy::hit_by_bullet, this, &Enemy::handle_bullet_hit);
     y_step = QRandomGenerator::global()->bounded(1, STATIC_Y_STEP + 5);
@@ -21,10 +21,7 @@ Enemy::Enemy(QString _image, int _layer) : image(_image), layer(_layer)
     {
         setRotation(180);
     }
-
     setPos(QRandomGenerator::global()->bounded(0, game->width()), -pixmap.height());
-    score = 1;
-
     connect(game->get_refresh_timer(), &QTimer::timeout, this, &Enemy::move);
 }
 
@@ -38,11 +35,16 @@ void Enemy::move()
     }
 }
 
-void Enemy::handle_bullet_hit(Airplane *player)
+void Enemy::handle_bullet_hit(Airplane *player, int damage)
 {
+    if (life > damage)
+    {
+        life -= damage;
+        return;
+    }
     if (player != nullptr)
     {
-        player->inc_score(get_score());
+        player->inc_score(pay);
     }
     emit game->score_change();
     emit game->enemy_destroyed();

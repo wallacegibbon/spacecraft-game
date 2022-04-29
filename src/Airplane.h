@@ -43,17 +43,18 @@ private:
 
 private:
     int score = 0;
+    int life = 10;
     int airplane_id = 0;
     int flame_id = 0;
     int flame_cnt = 0;
     int flame_cnt_total = 3;
     int flame_offset = -16;
+
     Direction direction = Normal;
     Speed speed = Default;
     CuteSoundPlayer *bullet_sound = nullptr;
 
     BulletType bullet_type = BULLET_0;
-    Bullet *active_bullet_sample;
 
     /* command from KeyboardController can be too frequently */
     int weapon_switch_interval = 500;

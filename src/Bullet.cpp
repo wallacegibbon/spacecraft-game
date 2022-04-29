@@ -8,8 +8,8 @@
 
 extern Game *game;
 
-Bullet::Bullet(QString _image, QString _sound, int _max_shoot_interval, Airplane *_player)
-    : image(_image), sound(_sound), max_shoot_interval(_max_shoot_interval), player(_player)
+Bullet::Bullet(QString _image, QString _sound, int _damage, int _max_shoot_interval, Airplane *_player)
+    : image(_image), sound(_sound), damage(_damage), max_shoot_interval(_max_shoot_interval), player(_player)
 {
     setPixmap(QPixmap(image));
     connect(game->get_refresh_timer(), &QTimer::timeout, this, &Bullet::move);
@@ -17,7 +17,7 @@ Bullet::Bullet(QString _image, QString _sound, int _max_shoot_interval, Airplane
 
 void Bullet::handle_hit(Enemy *enemy)
 {
-    emit enemy->hit_by_bullet(player);
+    emit enemy->hit_by_bullet(player, damage);
     game->removeItem(this);
     delete this;
 }
