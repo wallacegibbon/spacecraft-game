@@ -55,13 +55,15 @@ private:
     void display_replay_menu();
     void prepare_common_dialog();
     void cleanup();
+    void handle_refocus_keyboard();
 
 signals:
     void score_change();
     void enemy_destroyed();
+    void refocus_keyboard();
 
 private:
-    KeyboardController *keyboard_controller;
+    KeyboardController *keyboard_controller = nullptr;
     QGraphicsView *view;
     Airplane *player = nullptr;
     Score *score = nullptr;

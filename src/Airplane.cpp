@@ -13,6 +13,7 @@ Airplane::Airplane(QGraphicsItem *parent)
     bullet_sound = new CuteSoundPlayer(this);
     connect(game->get_refresh_timer(), &QTimer::timeout, this, &Airplane::check_hit);
     draw();
+    setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
 void Airplane::draw()
@@ -166,4 +167,9 @@ void Airplane::move_down(int distance)
     {
         setPos(x(), y() + distance);
     }
+}
+
+void Airplane::focusInEvent(QFocusEvent *event)
+{
+    emit game->refocus_keyboard();
 }

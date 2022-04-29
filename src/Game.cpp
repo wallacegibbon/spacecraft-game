@@ -39,6 +39,7 @@ Game::Game(int width, int height, QWidget *parent)
     connect(this, &Game::enemy_destroyed, this, &Game::play_enemy_explosion);
     connect(this, &Game::start, this, &Game::start_game);
     connect(this, &Game::stop, this, &Game::stop_game);
+    connect(this, &Game::refocus_keyboard, this, &Game::handle_refocus_keyboard);
 
     refresh_timer = new QTimer(this);
     enemy_creating_timer = new QTimer(this);
@@ -52,6 +53,11 @@ Game::Game(int width, int height, QWidget *parent)
     view->show();
 
     display_main_menu();
+}
+
+void Game::handle_refocus_keyboard()
+{
+    keyboard_controller->setFocus();
 }
 
 void Game::prepare_common_dialog()
@@ -163,6 +169,7 @@ void Game::stop_game()
     explosion_sound_2->play();
     removeItem(keyboard_controller);
     delete keyboard_controller;
+    keyboard_controller = nullptr;
     display_replay_menu();
 }
 

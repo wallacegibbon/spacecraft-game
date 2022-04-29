@@ -40,6 +40,7 @@ private:
     void draw();
     void update_flame_cnt();
     void check_hit();
+    void focusInEvent(QFocusEvent *event) override;
 
 private:
     int score = 0;
