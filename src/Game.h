@@ -5,6 +5,7 @@
 #include "CircleAudioPlayer.h"
 #include "CuteSoundPlayer.h"
 #include "Enemy.h"
+#include "KeyboardController.h"
 #include "Score.h"
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
@@ -34,14 +35,6 @@ signals:
     void stop();
 
 private:
-    static constexpr uint64_t Joystick_Empty_Command = 0;
-    static constexpr uint64_t Joystick_Move_Left = 1;
-    static constexpr uint64_t Joystick_Move_Right = 1 << 1;
-    static constexpr uint64_t Joystick_Move_Up = 1 << 2;
-    static constexpr uint64_t Joystick_Move_Down = 1 << 3;
-    static constexpr uint64_t Joystick_Shoot_1 = 1 << 4;
-    static constexpr uint64_t Joystick_Shoot_2 = 1 << 5;
-
     /*
      * layer 0 for static background (far) static things;
      * layer 1 and 3 for enemies;
@@ -51,13 +44,11 @@ private:
     static constexpr int NumOfLayers = 6;
 
     void init_layers();
-    void keyPressEvent(QKeyEvent *event) override;
-    void keyReleaseEvent(QKeyEvent *event) override;
     void update_score();
     void play_enemy_explosion();
     void spawn_enemy();
     uint64_t common_key_prepare(QKeyEvent *event);
-    void keyboard_handler();
+    void keyboard_handler(uint64_t command);
     void static_item_handler();
     void clear_static_items();
     void display_main_menu();
@@ -70,10 +61,10 @@ signals:
     void enemy_destroyed();
 
 private:
+    KeyboardController *keyboard_controller;
     QGraphicsView *view;
     Airplane *player = nullptr;
     Score *score = nullptr;
-    uint64_t player_ctrl = 0;
     CircleAudioPlayer *bgm_sound;
     CuteSoundPlayer *explosion_sound_1;
     CuteSoundPlayer *explosion_sound_2;

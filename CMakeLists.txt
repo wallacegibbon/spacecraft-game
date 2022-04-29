@@ -15,10 +15,11 @@ find_package(Qt5 COMPONENTS Widgets Multimedia REQUIRED)
 add_executable(${PRJ_NAME}
     resource/application.qrc
     src/main.cpp
+    src/Game.cpp
+    src/KeyboardController.cpp
     src/Airplane.cpp
     src/Bullet.cpp
     src/Enemy.cpp
-    src/Game.cpp
     src/Score.cpp
     src/StaticExplosion.cpp
     src/StaticStuff.cpp

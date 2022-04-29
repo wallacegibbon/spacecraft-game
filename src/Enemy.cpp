@@ -9,12 +9,12 @@
 
 extern Game *game;
 
-Enemy::Enemy(int _layer) : layer(_layer)
+Enemy::Enemy(QString _image, int _layer) : image(_image), layer(_layer)
 {
     connect(this, &Enemy::hit_by_bullet, this, &Enemy::handle_bullet_hit);
     y_step = QRandomGenerator::global()->bounded(1, STATIC_Y_STEP + 5);
 
-    QPixmap pixmap(":/image/enemy_0.png");
+    QPixmap pixmap(image);
     setPixmap(pixmap);
     setTransformOriginPoint(pixmap.width() / 2, pixmap.height() / 2);
     if (y_step > STATIC_Y_STEP)
@@ -40,7 +40,10 @@ void Enemy::move()
 
 void Enemy::handle_bullet_hit(Airplane *player)
 {
-    player->inc_score(get_score());
+    if (player != nullptr)
+    {
+        player->inc_score(get_score());
+    }
     emit game->score_change();
     emit game->enemy_destroyed();
 

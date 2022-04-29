@@ -1,7 +1,5 @@
 #include "Game.h"
 #include "Button.h"
-#include "CircleAudioPlayer.h"
-#include "CuteSoundPlayer.h"
 #include "Score.h"
 #include "StaticStuff.h"
 #include "common.h"
@@ -10,9 +8,6 @@
 #include <QGraphicsScene>
 #include <QGraphicsTextItem>
 #include <QGraphicsView>
-#include <QImage>
-#include <QKeyEvent>
-#include <QMediaPlayer>
 #include <QMediaPlaylist>
 #include <QRandomGenerator>
 #include <QTimer>
@@ -49,7 +44,6 @@ Game::Game(int width, int height, QWidget *parent)
     enemy_creating_timer = new QTimer(this);
 
     connect(refresh_timer, &QTimer::timeout, this, &Game::static_item_handler);
-    connect(refresh_timer, &QTimer::timeout, this, &Game::keyboard_handler);
 
     // QObject::connect(enemy_timer, &QTimer::timeout, this, &Game::spawn_enemy);
     connect(enemy_creating_timer, &QTimer::timeout, this, &Game::spawn_enemy);
@@ -137,6 +131,11 @@ void Game::start_game()
     cleanup();
     init_layers();
 
+    keyboard_controller = new KeyboardController();
+    addItem(keyboard_controller);
+    connect(keyboard_controller, &KeyboardController::command, this, &Game::keyboard_handler);
+    keyboard_controller->setFocus();
+
     player = new Airplane();
     player->setPos(view->width() / 2 - player->width() / 2, view->height() - player->height() - 10);
     add_item_to_layer(player, 2);
@@ -162,6 +161,8 @@ void Game::stop_game()
     refresh_timer->stop();
     enemy_creating_timer->stop();
     explosion_sound_2->play();
+    removeItem(keyboard_controller);
+    delete keyboard_controller;
     display_replay_menu();
 }
 
@@ -179,7 +180,15 @@ void Game::spawn_enemy()
     int random_num = QRandomGenerator::global()->bounded(0, 10);
     /* the player is in layer2, enemy should be in layer 1 or 3 */
     int layer_of_enemy = random_num > 5 ? 1 : 3;
-    Enemy *enemy = new Enemy(layer_of_enemy);
+    Enemy *enemy;
+    if (random_num % 2 == 0)
+    {
+        enemy = new Enemy_0(layer_of_enemy);
+    }
+    else
+    {
+        enemy = new Enemy_1(layer_of_enemy);
+    }
     add_item_to_layer(enemy, layer_of_enemy);
     if (random_num > 4)
     {
@@ -197,50 +206,12 @@ void Game::play_enemy_explosion()
     explosion_sound_1->play();
 }
 
-uint64_t Game::common_key_prepare(QKeyEvent *event)
+void Game::keyboard_handler(uint64_t command)
 {
-    if (event->isAutoRepeat())
-    {
-        return Joystick_Empty_Command;
-    }
-    switch (event->key())
-    {
-    case Qt::Key_Left:
-    case Qt::Key_A:
-        return Joystick_Move_Left;
-    case Qt::Key_Right:
-    case Qt::Key_D:
-        return Joystick_Move_Right;
-    case Qt::Key_Up:
-    case Qt::Key_W:
-        return Joystick_Move_Up;
-    case Qt::Key_Down:
-    case Qt::Key_S:
-        return Joystick_Move_Down;
-    case Qt::Key_Space:
-    case Qt::Key_F:
-        return Joystick_Shoot_1;
-    default:
-        return Joystick_Empty_Command;
-    }
-}
-
-void Game::keyPressEvent(QKeyEvent *event)
-{
-    player_ctrl |= common_key_prepare(event);
-}
-
-void Game::keyReleaseEvent(QKeyEvent *event)
-{
-    player_ctrl &= ~common_key_prepare(event);
-}
-
-void Game::keyboard_handler()
-{
-    uint64_t left_hold = player_ctrl & Joystick_Move_Left;
-    uint64_t right_hold = player_ctrl & Joystick_Move_Right;
-    uint64_t up_hold = player_ctrl & Joystick_Move_Up;
-    uint64_t down_hold = player_ctrl & Joystick_Move_Down;
+    uint64_t left_hold = command & KeyboardController::Joystick_Move_Left;
+    uint64_t right_hold = command & KeyboardController::Joystick_Move_Right;
+    uint64_t up_hold = command & KeyboardController::Joystick_Move_Up;
+    uint64_t down_hold = command & KeyboardController::Joystick_Move_Down;
     if (left_hold && !right_hold)
     {
         player->move_left(8);
@@ -265,9 +236,13 @@ void Game::keyboard_handler()
     {
         player->backto_normal_speed();
     }
-    if (player_ctrl & Joystick_Shoot_1)
+    if (command & KeyboardController::Joystick_Shoot)
     {
         player->shoot();
+    }
+    if (command & KeyboardController::Joystick_Switch_Weapon)
+    {
+        player->switch_weapon();
     }
 }
 

@@ -1,8 +1,9 @@
 #include "Button.h"
 #include <QBrush>
+#include <QCursor>
+#include <QDebug>
 #include <QGraphicsRectItem>
 #include <QKeyEvent>
-#include <QDebug>
 
 Button::Button(QString _text, QGraphicsItem *parent) : QGraphicsRectItem(parent)
 {
@@ -25,7 +26,9 @@ void Button::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void Button::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Enter)
+    int received_key = event->key();
+    /* Key_Return is the main Enter key, Key_Enter is the Enter key in number pad */
+    if (received_key == Qt::Key_Return || received_key == Qt::Key_Enter)
     {
         emit clicked();
     }
@@ -34,6 +37,7 @@ void Button::keyPressEvent(QKeyEvent *event)
 void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     setBrush(QBrush(Qt::cyan));
+    setCursor(QCursor(Qt::PointingHandCursor));
 }
 
 void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)

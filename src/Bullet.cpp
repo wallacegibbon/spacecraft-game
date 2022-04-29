@@ -8,9 +8,10 @@
 
 extern Game *game;
 
-Bullet::Bullet(Airplane *_player) : player(_player)
+Bullet::Bullet(QString _image, QString _sound, int _max_shoot_interval, Airplane *_player)
+    : image(_image), sound(_sound), max_shoot_interval(_max_shoot_interval), player(_player)
 {
-    setPixmap(QPixmap(QString(":/image/bullet_0.png")));
+    setPixmap(QPixmap(image));
     connect(game->get_refresh_timer(), &QTimer::timeout, this, &Bullet::move);
 }
 
@@ -27,7 +28,7 @@ int Bullet::check_hit_and_handle()
     QList<QGraphicsItem *> colliding_items = collidingItems();
     for (QGraphicsItem *item : colliding_items)
     {
-        if (typeid(*item) == typeid(Enemy))
+        if (dynamic_cast<Enemy *>(item) != nullptr)
         {
             handle_hit(dynamic_cast<Enemy *>(item));
             // collided++;

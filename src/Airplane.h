@@ -1,6 +1,7 @@
 #ifndef __MY_RECT_H
 #define __MY_RECT_H
 
+#include "Bullet.h"
 #include "CuteSoundPlayer.h"
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
@@ -31,6 +32,7 @@ public:
     void backto_normal_direction();
     void backto_normal_speed();
     void shoot();
+    void switch_weapon();
 
 private:
     QString body_image_url();
@@ -48,7 +50,15 @@ private:
     int flame_offset = -16;
     Direction direction = Normal;
     Speed speed = Default;
-    CuteSoundPlayer *bullet_sound;
+    CuteSoundPlayer *bullet_sound = nullptr;
+
+    BulletType bullet_type = BULLET_0;
+    Bullet *active_bullet_sample;
+
+    /* command from KeyboardController can be too frequently */
+    int weapon_switch_interval = 500;
+    int64_t previous_weapon_switch_time = 0;
+    int64_t previous_shoot_time = 0;
 };
 
 #endif

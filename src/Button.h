@@ -13,8 +13,6 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
-
-    /* this one doesn't work */
     void keyPressEvent(QKeyEvent *event) override;
 
 signals:
