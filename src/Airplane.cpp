@@ -29,7 +29,7 @@ void Airplane::draw()
     update_flame_cnt();
 }
 
-void Airplane::check_hit()
+void Airplane::check_hit() const
 {
     QList<QGraphicsItem *> colliding_items = collidingItems();
     for (QGraphicsItem *item : colliding_items)
@@ -41,7 +41,7 @@ void Airplane::check_hit()
     }
 }
 
-QString Airplane::body_image_url()
+QString Airplane::body_image_url() const
 {
     switch (direction)
     {
@@ -54,7 +54,7 @@ QString Airplane::body_image_url()
     }
 }
 
-QString Airplane::speed_image_url()
+QString Airplane::speed_image_url() const
 {
     switch (speed)
     {

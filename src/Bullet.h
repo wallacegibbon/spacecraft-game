@@ -18,16 +18,16 @@ public:
     Bullet(QString _image, QString _sound, int _damage = 1, int _max_shoot_interval = 200, Airplane *_player = nullptr);
     void move();
     Airplane *owner() { return player; }
-    qreal height() { return boundingRect().height(); }
-    qreal width() { return boundingRect().width(); }
-    int get_max_shoot_interval() { return max_shoot_interval; }
-    QString get_image() { return image; }
-    QString get_sound() { return sound; }
+    qreal height() const { return boundingRect().height(); }
+    qreal width() const { return boundingRect().width(); }
+    int get_max_shoot_interval() const { return max_shoot_interval; }
+    QString get_image() const { return image; }
+    QString get_sound() const { return sound; }
 
 private:
-    void handle_hit(Enemy *item);
-    int check_hit_and_handle();
-    bool should_be_destroyed();
+    void handle_hit(Enemy *item) const;
+    int check_hit_and_handle() const;
+    bool should_be_destroyed() const;
 
 private:
     Airplane *player;

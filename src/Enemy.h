@@ -14,9 +14,9 @@ class Enemy : public QObject, public QGraphicsRectItem
 public:
     Enemy(QString _image, int _life, int _pay, int _layer);
     void move();
-    int get_layer() { return layer; }
-    qreal height() { return boundingRect().height(); }
-    qreal width() { return boundingRect().width(); }
+    int get_layer() const { return layer; }
+    qreal height() const { return boundingRect().height(); }
+    qreal width() const { return boundingRect().width(); }
     void handle_bullet_hit(Airplane *player, int damage);
 
 signals:

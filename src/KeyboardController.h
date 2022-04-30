@@ -27,7 +27,7 @@ signals:
     void command(uint64_t cmd);
 
 private:
-    uint64_t common_key_prepare(QKeyEvent *event);
+    uint64_t common_key_prepare(QKeyEvent *event) const;
     void repeat_handler();
 
 private:

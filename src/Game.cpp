@@ -55,7 +55,7 @@ Game::Game(int width, int height, QWidget *parent)
     display_main_menu();
 }
 
-void Game::handle_refocus_keyboard()
+void Game::handle_refocus_keyboard() const
 {
     keyboard_controller->setFocus();
 }
@@ -208,12 +208,12 @@ void Game::update_score()
     score->update_score_display();
 }
 
-void Game::play_enemy_explosion()
+void Game::play_enemy_explosion() const
 {
     explosion_sound_1->play();
 }
 
-void Game::keyboard_handler(uint64_t command)
+void Game::keyboard_handler(uint64_t command) const
 {
     uint64_t left_hold = command & KeyboardController::Joystick_Move_Left;
     uint64_t right_hold = command & KeyboardController::Joystick_Move_Right;

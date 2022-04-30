@@ -19,11 +19,11 @@ class Airplane : public QObject, public QGraphicsPixmapItem
 public:
     Airplane(QGraphicsItem *parent = nullptr);
 
-    qreal height() { return boundingRect().height(); }
-    qreal width() { return boundingRect().width(); }
+    qreal height() const { return boundingRect().height(); }
+    qreal width() const { return boundingRect().width(); }
 
     void inc_score(int num) { score += num; }
-    int get_score() { return score; }
+    int get_score() const { return score; }
 
     void move_left(int distance);
     void move_right(int distance);
@@ -35,11 +35,11 @@ public:
     void switch_weapon();
 
 private:
-    QString body_image_url();
-    QString speed_image_url();
+    QString body_image_url() const;
+    QString speed_image_url() const;
     void draw();
     void update_flame_cnt();
-    void check_hit();
+    void check_hit() const;
     void focusInEvent(QFocusEvent *event) override;
 
 private:

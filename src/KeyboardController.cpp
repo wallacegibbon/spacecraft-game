@@ -68,7 +68,7 @@ void KeyboardController::keyReleaseEvent(QKeyEvent *event)
     emit command(player_ctrl);
 }
 
-uint64_t KeyboardController::common_key_prepare(QKeyEvent *event)
+uint64_t KeyboardController::common_key_prepare(QKeyEvent *event) const
 {
     switch (event->key())
     {

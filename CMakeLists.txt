@@ -12,21 +12,6 @@ set(CMAKE_AUTORCC ON)
 
 find_package(Qt5 COMPONENTS Widgets Multimedia REQUIRED)
 
-add_executable(${PRJ_NAME}
-    resource/application.qrc
-    src/main.cpp
-    src/Game.cpp
-    src/KeyboardController.cpp
-    src/Airplane.cpp
-    src/Bullet.cpp
-    src/Enemy.cpp
-    src/Score.cpp
-    src/StaticExplosion.cpp
-    src/StaticStuff.cpp
-    src/CuteSoundPlayer.cpp
-    src/CircleAudioPlayer.cpp
-    src/Button.cpp
-    src/LifeBar.cpp
-)
-
+aux_source_directory(src SRCS)
+add_executable(${PRJ_NAME} ${SRCS} resource/application.qrc)
 target_link_libraries(${PRJ_NAME} PRIVATE Qt5::Widgets Qt5::Multimedia)

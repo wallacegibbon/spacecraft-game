@@ -45,17 +45,16 @@ private:
 
     void init_layers();
     void update_score();
-    void play_enemy_explosion();
+    void play_enemy_explosion() const;
     void spawn_enemy();
-    uint64_t common_key_prepare(QKeyEvent *event);
-    void keyboard_handler(uint64_t command);
+    void keyboard_handler(uint64_t command) const;
     void static_item_handler();
     void clear_static_items();
     void display_main_menu();
     void display_replay_menu();
     void prepare_common_dialog();
     void cleanup();
-    void handle_refocus_keyboard();
+    void handle_refocus_keyboard() const;
 
 signals:
     void score_change();
