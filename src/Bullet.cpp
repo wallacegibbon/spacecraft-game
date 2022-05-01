@@ -9,7 +9,7 @@
 extern Game *game;
 
 Bullet::Bullet(QString _image, QString _sound, int _damage, int _max_shoot_interval, Airplane *_player)
-    : image(_image), sound(_sound), damage(_damage), max_shoot_interval(_max_shoot_interval), player(_player) {
+        : image(_image), sound(_sound), damage(_damage), max_shoot_interval(_max_shoot_interval), player(_player) {
     setPixmap(QPixmap(image));
     connect(game->get_refresh_timer(), &QTimer::timeout, this, &Bullet::move);
 }

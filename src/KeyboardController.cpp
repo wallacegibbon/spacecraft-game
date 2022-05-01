@@ -5,7 +5,7 @@ Qt::Key command_keys[] = {Qt::Key_Left, Qt::Key_Right, Qt::Key_Up, Qt::Key_Down,
                           Qt::Key_W,    Qt::Key_D,     Qt::Key_S,  Qt::Key_R,    Qt::Key_F};
 
 KeyboardController::KeyboardController(int _repeat_interval, QGraphicsItem *parent)
-    : repeat_interval(_repeat_interval), QGraphicsRectItem(parent) {
+        : repeat_interval(_repeat_interval), QGraphicsRectItem(parent) {
     setFlag(QGraphicsItem::ItemIsFocusable);
     repeat_timer = new QTimer(this);
     connect(repeat_timer, &QTimer::timeout, this, &KeyboardController::repeat_handler);

@@ -6,7 +6,7 @@
 extern Game *game;
 
 StaticExplosion::StaticExplosion(int _id, int _total_frames, QGraphicsItem *parent)
-    : id(_id), total_frames(_total_frames), QObject(), QGraphicsPixmapItem(parent) {
+        : id(_id), total_frames(_total_frames), QObject(), QGraphicsPixmapItem(parent) {
     connect(game->get_refresh_timer(), &QTimer::timeout, this, &StaticExplosion::animation_update);
 }
 
