@@ -8,16 +8,14 @@
 
 extern Game *game;
 
-Airplane::Airplane(QGraphicsItem *parent)
-{
+Airplane::Airplane(QGraphicsItem *parent) {
     bullet_sound = new CuteSoundPlayer(this);
     connect(game->get_refresh_timer(), &QTimer::timeout, this, &Airplane::check_hit);
     draw();
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
-void Airplane::draw()
-{
+void Airplane::draw() {
     QPixmap body(body_image_url());
     QPixmap flame(speed_image_url());
     QPixmap full(body.width(), body.height() + flame.height());
@@ -29,22 +27,17 @@ void Airplane::draw()
     update_flame_cnt();
 }
 
-void Airplane::check_hit() const
-{
+void Airplane::check_hit() const {
     QList<QGraphicsItem *> colliding_items = collidingItems();
-    for (QGraphicsItem *item : colliding_items)
-    {
-        if (dynamic_cast<Enemy *>(item) != nullptr)
-        {
+    for (QGraphicsItem *item : colliding_items) {
+        if (dynamic_cast<Enemy *>(item) != nullptr) {
             emit game->stop();
         }
     }
 }
 
-QString Airplane::body_image_url() const
-{
-    switch (direction)
-    {
+QString Airplane::body_image_url() const {
+    switch (direction) {
     case Left:
         return QString(":/image/airplane_%1/left.png").arg(airplane_id);
     case Right:
@@ -54,10 +47,8 @@ QString Airplane::body_image_url() const
     }
 }
 
-QString Airplane::speed_image_url() const
-{
-    switch (speed)
-    {
+QString Airplane::speed_image_url() const {
+    switch (speed) {
     case Fast:
         return QString(":/image/rocket_flame_%1/fast_%2.png").arg(flame_id).arg(flame_cnt);
     case Slow:
@@ -67,26 +58,20 @@ QString Airplane::speed_image_url() const
     }
 }
 
-void Airplane::update_flame_cnt()
-{
+void Airplane::update_flame_cnt() {
     flame_cnt++;
-    if (flame_cnt >= flame_cnt_total)
-    {
+    if (flame_cnt >= flame_cnt_total) {
         flame_cnt = 0;
     }
 }
 
-void Airplane::shoot()
-{
+void Airplane::shoot() {
     Bullet *new_bullet = new_bullet_of_type(bullet_type, this);
     int64_t now = QDateTime::currentMSecsSinceEpoch();
     // qDebug() << "max shoot interval:" << new_bullet->get_max_shoot_interval();
-    if (now - previous_shoot_time > new_bullet->get_max_shoot_interval())
-    {
+    if (now - previous_shoot_time > new_bullet->get_max_shoot_interval()) {
         previous_shoot_time = now;
-    }
-    else
-    {
+    } else {
         delete new_bullet;
         return;
     }
@@ -96,80 +81,60 @@ void Airplane::shoot()
     bullet_sound->play();
 }
 
-void Airplane::switch_weapon()
-{
+void Airplane::switch_weapon() {
     int64_t now = QDateTime::currentMSecsSinceEpoch();
-    if (now - previous_weapon_switch_time > weapon_switch_interval)
-    {
+    if (now - previous_weapon_switch_time > weapon_switch_interval) {
         previous_weapon_switch_time = now;
-    }
-    else
-    {
+    } else {
         return;
     }
-    if (bullet_type == BULLET_0)
-    {
+    if (bullet_type == BULLET_0) {
         bullet_type = BULLET_1;
-    }
-    else
-    {
+    } else {
         bullet_type = BULLET_0;
     }
 }
 
-void Airplane::backto_normal_direction()
-{
+void Airplane::backto_normal_direction() {
     direction = Normal;
     draw();
 }
 
-void Airplane::backto_normal_speed()
-{
+void Airplane::backto_normal_speed() {
     speed = Default;
     draw();
 }
 
-void Airplane::move_left(int distance)
-{
+void Airplane::move_left(int distance) {
     direction = Left;
     draw();
-    if (x() > 0)
-    {
+    if (x() > 0) {
         setPos(x() - distance, y());
     }
 }
 
-void Airplane::move_right(int distance)
-{
+void Airplane::move_right(int distance) {
     direction = Right;
     draw();
-    if (x() + width() < game->width())
-    {
+    if (x() + width() < game->width()) {
         setPos(x() + distance, y());
     }
 }
 
-void Airplane::move_up(int distance)
-{
+void Airplane::move_up(int distance) {
     speed = Fast;
     draw();
-    if (y() > 10)
-    {
+    if (y() > 10) {
         setPos(x(), y() - distance);
     }
 }
 
-void Airplane::move_down(int distance)
-{
+void Airplane::move_down(int distance) {
     speed = Slow;
     draw();
-    if (y() < game->height() - height() - 10)
-    {
+    if (y() < game->height() - height() - 10) {
         setPos(x(), y() + distance);
     }
 }
 
-void Airplane::focusInEvent(QFocusEvent *event)
-{
-    emit game->refocus_keyboard();
-}
+void Airplane::focusInEvent(QFocusEvent *event) { emit game->refocus_keyboard(); }

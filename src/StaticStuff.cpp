@@ -6,8 +6,7 @@
 
 extern Game *game;
 
-RandomStaticDust::RandomStaticDust(QGraphicsItem *parent) : QGraphicsPixmapItem(parent)
-{
+RandomStaticDust::RandomStaticDust(QGraphicsItem *parent) : QGraphicsPixmapItem(parent) {
     /* rotation angle bigger than 90 degree will make the out-of-view-checking complex */
     int random_angle = QRandomGenerator::global()->bounded(0, 90);
     dust_id = random_angle % dust_id_nums;

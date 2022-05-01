@@ -4,8 +4,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsTextItem>
 
-class Button : public QObject, public QGraphicsRectItem
-{
+class Button : public QObject, public QGraphicsRectItem {
     Q_OBJECT
 
 public:

@@ -4,8 +4,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
 
-class RandomStaticDust : public QGraphicsPixmapItem
-{
+class RandomStaticDust : public QGraphicsPixmapItem {
 public:
     RandomStaticDust(QGraphicsItem *parent = nullptr);
 

@@ -13,8 +13,7 @@
 #include <QTimer>
 #include <list>
 
-class Game : public QGraphicsScene
-{
+class Game : public QGraphicsScene {
     Q_OBJECT
 
 public:

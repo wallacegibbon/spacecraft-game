@@ -9,8 +9,7 @@
 
 extern Game *game;
 
-Enemy::Enemy(QString _image, int _life, int _pay, int _layer) : image(_image), life(_life), pay(_pay), layer(_layer)
-{
+Enemy::Enemy(QString _image, int _life, int _pay, int _layer) : image(_image), life(_life), pay(_pay), layer(_layer) {
     connect(this, &Enemy::hit_by_bullet, this, &Enemy::handle_bullet_hit);
     y_step = QRandomGenerator::global()->bounded(1, STATIC_Y_STEP + 5);
 
@@ -23,12 +22,9 @@ Enemy::Enemy(QString _image, int _life, int _pay, int _layer) : image(_image), l
     int width = max<double>(body->boundingRect().width(), life_bar->width());
     int height = body->boundingRect().height() + life_bar->height() + 10;
 
-    if (life_bar->width() == width)
-    {
+    if (life_bar->width() == width) {
         body->setPos((width - body->boundingRect().width()) / 2, life_bar->height() + 10);
-    }
-    else
-    {
+    } else {
         life_bar->setPos((width - life_bar->width()) / 2, 0);
         body->setPos(0, life_bar->height() + 10);
     }
@@ -39,34 +35,28 @@ Enemy::Enemy(QString _image, int _life, int _pay, int _layer) : image(_image), l
     setPos(QRandomGenerator::global()->bounded(0, game->width()), -pixmap.height());
 
     setTransformOriginPoint(rect().width() / 2, rect().height() / 2);
-    if (y_step > STATIC_Y_STEP)
-    {
+    if (y_step > STATIC_Y_STEP) {
         setRotation(180);
     }
 
     connect(game->get_refresh_timer(), &QTimer::timeout, this, &Enemy::move);
 }
 
-void Enemy::move()
-{
+void Enemy::move() {
     setPos(x(), y() + y_step);
-    if (y() > game->height())
-    {
+    if (y() > game->height()) {
         game->removeItem(this);
         delete this;
     }
 }
 
-void Enemy::handle_bullet_hit(Airplane *player, int damage)
-{
-    if (life > damage)
-    {
+void Enemy::handle_bullet_hit(Airplane *player, int damage) {
+    if (life > damage) {
         life -= damage;
         life_bar->update_value(life);
         return;
     }
-    if (player != nullptr)
-    {
+    if (player != nullptr) {
         player->inc_score(pay);
     }
     emit game->score_change();

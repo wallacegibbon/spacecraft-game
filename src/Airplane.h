@@ -7,8 +7,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPainter>
 
-class Airplane : public QObject, public QGraphicsPixmapItem
-{
+class Airplane : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 
     // clang-format off
@@ -40,6 +39,7 @@ private:
     void draw();
     void update_flame_cnt();
     void check_hit() const;
+
     void focusInEvent(QFocusEvent *event) override;
 
 private:

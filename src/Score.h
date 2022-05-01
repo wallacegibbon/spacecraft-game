@@ -6,8 +6,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsTextItem>
 
-class Score : public QGraphicsRectItem
-{
+class Score : public QGraphicsRectItem {
 public:
     Score(Airplane *_player);
     void update_score_display();

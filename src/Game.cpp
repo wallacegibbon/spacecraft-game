@@ -12,8 +12,7 @@
 #include <QRandomGenerator>
 #include <QTimer>
 
-Game::Game(int width, int height, QWidget *parent)
-{
+Game::Game(int width, int height, QWidget *parent) {
     setSceneRect(0, 0, width, height);
 
     view = new QGraphicsView(this);
@@ -55,15 +54,10 @@ Game::Game(int width, int height, QWidget *parent)
     display_main_menu();
 }
 
-void Game::handle_refocus_keyboard() const
-{
-    keyboard_controller->setFocus();
-}
+void Game::handle_refocus_keyboard() const { keyboard_controller->setFocus(); }
 
-void Game::prepare_common_dialog()
-{
-    if (common_dialog != nullptr)
-    {
+void Game::prepare_common_dialog() {
+    if (common_dialog != nullptr) {
         delete common_dialog;
     }
     common_dialog = new QGraphicsRectItem();
@@ -73,8 +67,7 @@ void Game::prepare_common_dialog()
     addItem(common_dialog);
 }
 
-void Game::display_main_menu()
-{
+void Game::display_main_menu() {
     prepare_common_dialog();
     QGraphicsTextItem *title = new QGraphicsTextItem(QString("Airplane Game"), common_dialog);
     title->setFont(QFont("sans", 18));
@@ -91,8 +84,7 @@ void Game::display_main_menu()
     connect(quit_button, &Button::clicked, view, &QGraphicsView::close);
 }
 
-void Game::display_replay_menu()
-{
+void Game::display_replay_menu() {
     prepare_common_dialog();
     QString end_text = QString("Game Over, your score: %1").arg(player->get_score());
     QGraphicsTextItem *title = new QGraphicsTextItem(end_text, common_dialog);
@@ -110,8 +102,7 @@ void Game::display_replay_menu()
     connect(quit_button, &Button::clicked, view, &QGraphicsView::close);
 }
 
-void Game::cleanup()
-{
+void Game::cleanup() {
     clear();
     /* Items inside static_items will also be cleared by `clear()`. Just clean up std::list here will be ok */
     static_items.clear();
@@ -128,10 +119,8 @@ void Game::cleanup()
     common_dialog = nullptr;
 }
 
-void Game::start_game()
-{
-    if (status == Running)
-    {
+void Game::start_game() {
+    if (status == Running) {
         return;
     }
     cleanup();
@@ -156,10 +145,8 @@ void Game::start_game()
     status = Running;
 }
 
-void Game::stop_game()
-{
-    if (status == Stopped)
-    {
+void Game::stop_game() {
+    if (status == Stopped) {
         return;
     }
     status = Stopped;
@@ -173,130 +160,97 @@ void Game::stop_game()
     display_replay_menu();
 }
 
-void Game::init_layers()
-{
-    for (QGraphicsRectItem *&layer : layers)
-    {
+void Game::init_layers() {
+    for (QGraphicsRectItem *&layer : layers) {
         layer = new QGraphicsRectItem();
         addItem(layer);
     }
 }
 
-void Game::spawn_enemy()
-{
+void Game::spawn_enemy() {
     int random_num = QRandomGenerator::global()->bounded(0, 10);
     /* the player is in layer2, enemy should be in layer 1 or 3 */
     int layer_of_enemy = random_num > 5 ? 1 : 3;
     Enemy *enemy;
-    if (random_num % 2 == 0)
-    {
+    if (random_num % 2 == 0) {
         enemy = new Enemy_0(layer_of_enemy);
-    }
-    else
-    {
+    } else {
         enemy = new Enemy_1(layer_of_enemy);
     }
     add_item_to_layer(enemy, layer_of_enemy);
-    if (random_num > 4)
-    {
+    if (random_num > 4) {
         add_static_item(new RandomStaticDust(), NumOfLayers - 2);
     }
 }
 
-void Game::update_score()
-{
-    score->update_score_display();
-}
+void Game::update_score() { score->update_score_display(); }
 
-void Game::play_enemy_explosion() const
-{
-    explosion_sound_1->play();
-}
+void Game::play_enemy_explosion() const { explosion_sound_1->play(); }
 
-void Game::keyboard_handler(uint64_t command) const
-{
+void Game::keyboard_handler(uint64_t command) const {
     uint64_t left_hold = command & KeyboardController::Joystick_Move_Left;
     uint64_t right_hold = command & KeyboardController::Joystick_Move_Right;
     uint64_t up_hold = command & KeyboardController::Joystick_Move_Up;
     uint64_t down_hold = command & KeyboardController::Joystick_Move_Down;
-    if (left_hold && !right_hold)
-    {
+    if (left_hold && !right_hold) {
         player->move_left(8);
     }
-    if (right_hold && !left_hold)
-    {
+    if (right_hold && !left_hold) {
         player->move_right(8);
     }
-    if ((left_hold && right_hold) || (!left_hold && !right_hold))
-    {
+    if ((left_hold && right_hold) || (!left_hold && !right_hold)) {
         player->backto_normal_direction();
     }
-    if (up_hold && !down_hold)
-    {
+    if (up_hold && !down_hold) {
         player->move_up(8);
     }
-    if (down_hold && !up_hold)
-    {
+    if (down_hold && !up_hold) {
         player->move_down(STATIC_Y_STEP - 1);
     }
-    if ((up_hold && down_hold) || (!up_hold && !down_hold))
-    {
+    if ((up_hold && down_hold) || (!up_hold && !down_hold)) {
         player->backto_normal_speed();
     }
-    if (command & KeyboardController::Joystick_Shoot)
-    {
+    if (command & KeyboardController::Joystick_Shoot) {
         player->shoot();
     }
-    if (command & KeyboardController::Joystick_Switch_Weapon)
-    {
+    if (command & KeyboardController::Joystick_Switch_Weapon) {
         player->switch_weapon();
     }
 }
 
-bool Game::add_item_to_layer(QGraphicsItem *item, int layer_num)
-{
-    if (layer_num >= NumOfLayers)
-    {
+bool Game::add_item_to_layer(QGraphicsItem *item, int layer_num) {
+    if (layer_num >= NumOfLayers) {
         return false;
     }
     item->setParentItem(layers[layer_num]);
     return true;
 }
 
-void Game::add_static_item(QGraphicsItem *item, int layer)
-{
+void Game::add_static_item(QGraphicsItem *item, int layer) {
     add_item_to_layer(item, layer);
     static_items.push_front(item);
 }
 
-void Game::static_item_handler()
-{
-    if (static_items.empty())
-    {
+void Game::static_item_handler() {
+    if (static_items.empty()) {
         return;
     }
     std::list<QGraphicsItem *>::iterator it = static_items.begin();
-    while (it != static_items.end())
-    {
+    while (it != static_items.end()) {
         QGraphicsItem *item = *it;
         item->setPos(item->x(), item->y() + STATIC_Y_STEP);
-        if (item->y() > height())
-        {
+        if (item->y() > height()) {
             it = static_items.erase(it);
             removeItem(item);
             delete item;
-        }
-        else
-        {
+        } else {
             it++;
         }
     }
 }
 
-void Game::clear_static_items()
-{
-    for (QGraphicsItem *item : static_items)
-    {
+void Game::clear_static_items() {
+    for (QGraphicsItem *item : static_items) {
         removeItem(item);
         delete item;
     }

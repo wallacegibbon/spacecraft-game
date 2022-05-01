@@ -4,8 +4,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
 
-class StaticExplosion : public QObject, public QGraphicsPixmapItem
-{
+class StaticExplosion : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 
 public:
@@ -23,8 +22,7 @@ private:
     int v_height = 0;
 };
 
-class StaticExplosion_0 : public StaticExplosion
-{
+class StaticExplosion_0 : public StaticExplosion {
 public:
     StaticExplosion_0() : StaticExplosion(0, 32) {}
 };

@@ -6,8 +6,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 
-class KeyboardController : public QObject, public QGraphicsRectItem
-{
+class KeyboardController : public QObject, public QGraphicsRectItem {
     Q_OBJECT
 
 public:

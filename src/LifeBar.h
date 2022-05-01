@@ -3,8 +3,7 @@
 
 #include <QGraphicsRectItem>
 
-class LifeBar : public QGraphicsRectItem
-{
+class LifeBar : public QGraphicsRectItem {
 public:
     LifeBar(int _init_value, QGraphicsItem *parent = nullptr);
     void update_value(int value);

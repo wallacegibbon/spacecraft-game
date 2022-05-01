@@ -5,8 +5,7 @@ Qt::Key command_keys[] = {Qt::Key_Left, Qt::Key_Right, Qt::Key_Up, Qt::Key_Down,
                           Qt::Key_W,    Qt::Key_D,     Qt::Key_S,  Qt::Key_R,    Qt::Key_F};
 
 KeyboardController::KeyboardController(int _repeat_interval, QGraphicsItem *parent)
-    : repeat_interval(_repeat_interval), QGraphicsRectItem(parent)
-{
+    : repeat_interval(_repeat_interval), QGraphicsRectItem(parent) {
     setFlag(QGraphicsItem::ItemIsFocusable);
     repeat_timer = new QTimer(this);
     connect(repeat_timer, &QTimer::timeout, this, &KeyboardController::repeat_handler);
@@ -14,33 +13,26 @@ KeyboardController::KeyboardController(int _repeat_interval, QGraphicsItem *pare
     repeat_timer->start(repeat_interval);
 }
 
-void KeyboardController::repeat_handler()
-{
+void KeyboardController::repeat_handler() {
     // qDebug() << "repeat handler is triggered, press_stack: " << press_stack;
     emit command(player_ctrl);
 }
 
-bool is_command_key(int key)
-{
+bool is_command_key(int key) {
     bool result = false;
-    for (Qt::Key k : command_keys)
-    {
-        if (key == k)
-        {
+    for (Qt::Key k : command_keys) {
+        if (key == k) {
             result = true;
         }
     }
     return result;
 }
 
-void KeyboardController::keyPressEvent(QKeyEvent *event)
-{
-    if (event->isAutoRepeat())
-    {
+void KeyboardController::keyPressEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) {
         return;
     }
-    if (is_command_key(event->key()))
-    {
+    if (is_command_key(event->key())) {
         press_stack++;
         repeat_timer->start(repeat_interval);
     }
@@ -49,18 +41,14 @@ void KeyboardController::keyPressEvent(QKeyEvent *event)
     emit command(player_ctrl);
 }
 
-void KeyboardController::keyReleaseEvent(QKeyEvent *event)
-{
-    if (event->isAutoRepeat())
-    {
+void KeyboardController::keyReleaseEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) {
         return;
     }
-    if (press_stack > 0 && is_command_key(event->key()))
-    {
+    if (press_stack > 0 && is_command_key(event->key())) {
         press_stack--;
     }
-    if (press_stack == 0)
-    {
+    if (press_stack == 0) {
         repeat_timer->stop();
     }
     // qDebug() << "key release: " << event->key() << ", press_stack: " << press_stack;
@@ -68,10 +56,8 @@ void KeyboardController::keyReleaseEvent(QKeyEvent *event)
     emit command(player_ctrl);
 }
 
-uint64_t KeyboardController::common_key_prepare(QKeyEvent *event) const
-{
-    switch (event->key())
-    {
+uint64_t KeyboardController::common_key_prepare(QKeyEvent *event) const {
+    switch (event->key()) {
     case Qt::Key_Left:
     case Qt::Key_A:
         return Joystick_Move_Left;

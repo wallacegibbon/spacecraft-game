@@ -2,8 +2,7 @@
 #include <QBrush>
 #include <QPen>
 
-LifeBar::LifeBar(int _init_value, QGraphicsItem *parent) : init_value(_init_value), QGraphicsRectItem(parent)
-{
+LifeBar::LifeBar(int _init_value, QGraphicsItem *parent) : init_value(_init_value), QGraphicsRectItem(parent) {
     setRect(0, 0, bar_width, bar_height);
     setBrush(QBrush(Qt::darkGray));
     setPen(QPen(Qt::NoPen));
@@ -13,8 +12,7 @@ LifeBar::LifeBar(int _init_value, QGraphicsItem *parent) : init_value(_init_valu
     update_value(init_value);
 }
 
-void LifeBar::update_value(int value)
-{
+void LifeBar::update_value(int value) {
     current_value = value > init_value ? init_value : value;
     int current_width = bar_width * (static_cast<double>(current_value) / init_value);
     value_bar->setRect(0, 0, current_width, bar_height);

@@ -7,8 +7,7 @@
 
 class Airplane;
 
-class Enemy : public QObject, public QGraphicsRectItem
-{
+class Enemy : public QObject, public QGraphicsRectItem {
     Q_OBJECT
 
 public:
@@ -32,14 +31,12 @@ private:
     int layer;
 };
 
-class Enemy_0 : public Enemy
-{
+class Enemy_0 : public Enemy {
 public:
     Enemy_0(int layer) : Enemy(":/image/enemy_0.png", 8, 1, layer) {}
 };
 
-class Enemy_1 : public Enemy
-{
+class Enemy_1 : public Enemy {
 public:
     Enemy_1(int layer) : Enemy(":/image/enemy_1.png", 12, 2, layer) {}
 };

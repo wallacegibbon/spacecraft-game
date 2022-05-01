@@ -10,8 +10,7 @@ enum BulletType { BULLET_0, BULLET_1 };
 
 class Airplane;
 
-class Bullet : public QObject, public QGraphicsPixmapItem
-{
+class Bullet : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 
 public:
@@ -37,22 +36,18 @@ private:
     int max_shoot_interval;
 };
 
-class Bullet_0 : public Bullet
-{
+class Bullet_0 : public Bullet {
 public:
     Bullet_0(Airplane *player = nullptr) : Bullet(":/image/bullet_0.png", "qrc:/sound/weapon_0.wav", 2, 100, player) {}
 };
 
-class Bullet_1 : public Bullet
-{
+class Bullet_1 : public Bullet {
 public:
     Bullet_1(Airplane *player = nullptr) : Bullet(":/image/bullet_1.png", "qrc:/sound/weapon_1.wav", 5, 300, player) {}
 };
 
-inline Bullet *new_bullet_of_type(BulletType type, Airplane *owner)
-{
-    switch (type)
-    {
+inline Bullet *new_bullet_of_type(BulletType type, Airplane *owner) {
+    switch (type) {
     case BULLET_0:
         return new Bullet_0(owner);
     case BULLET_1:
