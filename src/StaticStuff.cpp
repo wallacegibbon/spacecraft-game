@@ -3,6 +3,7 @@
 #include "common.h"
 #include <QGraphicsScene>
 #include <QRandomGenerator>
+#include <algorithm>
 
 extern Game *game;
 
@@ -12,7 +13,7 @@ RandomStaticDust::RandomStaticDust(QGraphicsItem *parent) : QGraphicsPixmapItem(
     dust_id = random_angle % dust_id_nums;
     QPixmap pixmap(QString(":/image/dust_%1").arg(dust_id));
     setPixmap(pixmap);
-    int y_offset = -max(hypotenuse(boundingRect().height(), boundingRect().width()), game->height());
+    int y_offset = -std::max(hypotenuse(boundingRect().height(), boundingRect().width()), game->height());
     setPos(QRandomGenerator::global()->bounded(0, game->width() + 60) - 30, y_offset);
     setRotation(random_angle);
 }

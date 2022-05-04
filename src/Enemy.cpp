@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QRandomGenerator>
 #include <QTimer>
+#include <algorithm>
 
 extern Game *game;
 
@@ -19,7 +20,7 @@ Enemy::Enemy(QString _image, int _life, int _pay, int _layer) : image(_image), l
     QPixmap pixmap(image);
     body->setPixmap(pixmap);
 
-    int width = max<double>(body->boundingRect().width(), life_bar->width());
+    int width = std::max<double>(body->boundingRect().width(), life_bar->width());
     int height = body->boundingRect().height() + life_bar->height() + 10;
 
     if (life_bar->width() == width) {
