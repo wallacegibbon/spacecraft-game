@@ -6,11 +6,11 @@
 
 class RandomStaticDust : public QGraphicsPixmapItem {
 public:
-    RandomStaticDust(QGraphicsItem *parent = nullptr);
+	RandomStaticDust(QGraphicsItem *parent = nullptr);
 
 private:
-    int dust_id = 0;
-    int dust_id_nums = 7;
+	int dust_id = 0;
+	int dust_id_nums = 7;
 };
 
 #endif

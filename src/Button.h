@@ -5,20 +5,20 @@
 #include <QGraphicsTextItem>
 
 class Button : public QObject, public QGraphicsRectItem {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    Button(QString _text, QGraphicsItem *parent = nullptr);
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-    void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
-    void keyPressEvent(QKeyEvent *event) override;
+	Button(QString _text, QGraphicsItem *parent = nullptr);
+	void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+	void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+	void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
+	void keyPressEvent(QKeyEvent *event) override;
 
 signals:
-    void clicked();
+	void clicked();
 
 private:
-    QGraphicsTextItem *text;
+	QGraphicsTextItem *text;
 };
 
 #endif

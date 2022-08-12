@@ -8,12 +8,12 @@
 
 class Score : public QGraphicsRectItem {
 public:
-    Score(Airplane *_player);
-    void update_score_display();
+	Score(Airplane *_player);
+	void update_score_display();
 
 private:
-    Airplane *player;
-    QGraphicsTextItem *score;
+	Airplane *player;
+	QGraphicsTextItem *score;
 };
 
 #endif

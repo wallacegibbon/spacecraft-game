@@ -6,10 +6,10 @@
 
 class CircleAudioPlayer : public QMediaPlayer {
 public:
-    CircleAudioPlayer(QString media_url, QObject *parent = nullptr);
+	CircleAudioPlayer(QString media_url, QObject *parent = nullptr);
 
 private:
-    QMediaPlaylist *playlist;
+	QMediaPlaylist *playlist;
 };
 
 #endif
