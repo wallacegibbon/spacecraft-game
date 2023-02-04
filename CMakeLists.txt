@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16.0)
 
-set(PRJ_NAME airplane-game)
+set(PRJ_NAME spacecraft-game)
 
 project(${PRJ_NAME} VERSION 1.0.0 LANGUAGES CXX)
 

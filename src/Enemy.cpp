@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include "Airplane.h"
+#include "Spacecraft.h"
 #include "Game.h"
 #include "StaticExplosion.h"
 #include "common.h"
@@ -57,7 +57,7 @@ void Enemy::move() {
   }
 }
 
-void Enemy::handle_bullet_hit(Airplane *player, int damage) {
+void Enemy::handle_bullet_hit(Spacecraft *player, int damage) {
   if (life_ > damage) {
     life_ -= damage;
     life_bar_->update_value(life_);

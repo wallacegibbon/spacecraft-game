@@ -1,4 +1,4 @@
-#include "Airplane.h"
+#include "Spacecraft.h"
 #include "Bullet.h"
 #include "Game.h"
 #include <QDateTime>
@@ -8,16 +8,16 @@
 
 extern Game *game;
 
-Airplane::Airplane(QGraphicsItem *parent) {
+Spacecraft::Spacecraft(QGraphicsItem *parent) {
   bullet_sound_ = new CuteSoundPlayer(this);
   connect(
-    game->get_refresh_timer(), &QTimer::timeout, this, &Airplane::check_hit
+    game->get_refresh_timer(), &QTimer::timeout, this, &Spacecraft::check_hit
   );
   draw();
   setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
-void Airplane::draw() {
+void Spacecraft::draw() {
   QPixmap body(body_image_url());
   QPixmap flame(speed_image_url());
   QPixmap full(body.width(), body.height() + flame.height());
@@ -31,25 +31,25 @@ void Airplane::draw() {
   update_flame_cnt();
 }
 
-void Airplane::check_hit() const {
+void Spacecraft::check_hit() const {
   QList<QGraphicsItem *> colliding_items = collidingItems();
   for (QGraphicsItem *item : colliding_items) {
     if (dynamic_cast<Enemy *>(item) != nullptr) { emit game->stop(); }
   }
 }
 
-QString Airplane::body_image_url() const {
+QString Spacecraft::body_image_url() const {
   switch (direction_) {
   case Left:
-    return QString(":/image/airplane_%1/left.png").arg(airplane_id_);
+    return QString(":/image/spacecraft_%1/left.png").arg(Spacecraft_id_);
   case Right:
-    return QString(":/image/airplane_%1/right.png").arg(airplane_id_);
+    return QString(":/image/spacecraft_%1/right.png").arg(Spacecraft_id_);
   default:
-    return QString(":/image/airplane_%1/normal.png").arg(airplane_id_);
+    return QString(":/image/spacecraft_%1/normal.png").arg(Spacecraft_id_);
   }
 }
 
-QString Airplane::speed_image_url() const {
+QString Spacecraft::speed_image_url() const {
   switch (speed_) {
   case Fast:
     return QString(":/image/rocket_flame_%1/fast_%2.png")
@@ -66,12 +66,12 @@ QString Airplane::speed_image_url() const {
   }
 }
 
-void Airplane::update_flame_cnt() {
+void Spacecraft::update_flame_cnt() {
   flame_cnt_++;
   if (flame_cnt_ >= flame_cnt_total_) { flame_cnt_ = 0; }
 }
 
-void Airplane::shoot() {
+void Spacecraft::shoot() {
   Bullet *new_bullet = new_bullet_of_type(bullet_type_, this);
   int64_t now = QDateTime::currentMSecsSinceEpoch();
   /*
@@ -90,7 +90,7 @@ void Airplane::shoot() {
   bullet_sound_->play();
 }
 
-void Airplane::switch_weapon() {
+void Spacecraft::switch_weapon() {
   int64_t now = QDateTime::currentMSecsSinceEpoch();
   if (now - previous_weapon_switch_time_ > weapon_switch_interval_) {
     previous_weapon_switch_time_ = now;
@@ -105,40 +105,40 @@ void Airplane::switch_weapon() {
   }
 }
 
-void Airplane::backto_normal_direction() {
+void Spacecraft::backto_normal_direction() {
   direction_ = Normal;
   draw();
 }
 
-void Airplane::backto_normal_speed() {
+void Spacecraft::backto_normal_speed() {
   speed_ = Default;
   draw();
 }
 
-void Airplane::move_left(int distance) {
+void Spacecraft::move_left(int distance) {
   direction_ = Left;
   draw();
   if (x() > 0) { setPos(x() - distance, y()); }
 }
 
-void Airplane::move_right(int distance) {
+void Spacecraft::move_right(int distance) {
   direction_ = Right;
   draw();
   if (x() + width() < game->width()) { setPos(x() + distance, y()); }
 }
 
-void Airplane::move_up(int distance) {
+void Spacecraft::move_up(int distance) {
   speed_ = Fast;
   draw();
   if (y() > 10) { setPos(x(), y() - distance); }
 }
 
-void Airplane::move_down(int distance) {
+void Spacecraft::move_down(int distance) {
   speed_ = Slow;
   draw();
   if (y() < game->height() - height() - 10) { setPos(x(), y() + distance); }
 }
 
-void Airplane::focusInEvent(QFocusEvent *event) {
+void Spacecraft::focusInEvent(QFocusEvent *event) {
   emit game->refocus_keyboard();
 }

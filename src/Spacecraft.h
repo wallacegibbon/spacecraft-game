@@ -6,7 +6,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPainter>
 
-class Airplane : public QObject, public QGraphicsPixmapItem {
+class Spacecraft : public QObject, public QGraphicsPixmapItem {
   Q_OBJECT
 
   enum Direction { Normal, Left, Right };
@@ -14,7 +14,7 @@ class Airplane : public QObject, public QGraphicsPixmapItem {
 
   int score_ = 0;
   int life_ = 10;
-  int airplane_id_ = 0;
+  int Spacecraft_id_ = 0;
   int flame_id_ = 0;
   int flame_cnt_ = 0;
   int flame_cnt_total_ = 3;
@@ -32,7 +32,7 @@ class Airplane : public QObject, public QGraphicsPixmapItem {
   int64_t previous_shoot_time_ = 0;
 
 public:
-  Airplane(QGraphicsItem *parent = nullptr);
+  Spacecraft(QGraphicsItem *parent = nullptr);
 
   qreal height() const { return boundingRect().height(); }
   qreal width() const { return boundingRect().width(); }

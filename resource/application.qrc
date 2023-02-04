@@ -39,9 +39,9 @@
 		<file>image/explosion_animation_0/0029.png</file>
 		<file>image/explosion_animation_0/0030.png</file>
 		<file>image/explosion_animation_0/0031.png</file>
-		<file>image/airplane_0/normal.png</file>
-		<file>image/airplane_0/left.png</file>
-		<file>image/airplane_0/right.png</file>
+		<file>image/spacecraft_0/normal.png</file>
+		<file>image/spacecraft_0/left.png</file>
+		<file>image/spacecraft_0/right.png</file>
 		<file>image/rocket_flame_0/normal_0.png</file>
 		<file>image/rocket_flame_0/normal_1.png</file>
 		<file>image/rocket_flame_0/normal_2.png</file>

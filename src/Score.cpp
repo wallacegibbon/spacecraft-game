@@ -1,7 +1,7 @@
 #include "Score.h"
 #include <QFont>
 
-Score::Score(Airplane *player) : player_(player), QGraphicsRectItem(player) {
+Score::Score(Spacecraft *player) : player_(player), QGraphicsRectItem(player) {
   setRect(0, 0, 200, 30);
   setBrush(QBrush(Qt::darkGray));
   score_ = new QGraphicsTextItem(this);

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Airplane.h"
+#include "Spacecraft.h"
 #include <QGraphicsItem>
 #include <QGraphicsRectItem>
 #include <QGraphicsTextItem>
 
 class Score : public QGraphicsRectItem {
-  Airplane *player_;
+  Spacecraft *player_;
   QGraphicsTextItem *score_;
 
 public:
-  Score(Airplane *player);
+  Score(Spacecraft *player);
   void update_score_display();
 };

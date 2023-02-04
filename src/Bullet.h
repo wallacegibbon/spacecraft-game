@@ -5,12 +5,12 @@
 
 enum BulletType { BULLET_0, BULLET_1 };
 
-class Airplane;
+class Spacecraft;
 
 class Bullet : public QObject, public QGraphicsPixmapItem {
   Q_OBJECT
 
-  Airplane *player_;
+  Spacecraft *player_;
   int damage_;
   QString image_;
   QString sound_;
@@ -22,11 +22,11 @@ public:
     QString sound,
     int damage = 1,
     int max_shoot_interval = 200,
-    Airplane *player = nullptr
+    Spacecraft *player = nullptr
   );
 
   void move();
-  Airplane *owner() { return player_; }
+  Spacecraft *owner() { return player_; }
   qreal height() const { return boundingRect().height(); }
   qreal width() const { return boundingRect().width(); }
 
@@ -42,7 +42,7 @@ private:
 
 class Bullet_0 : public Bullet {
 public:
-  Bullet_0(Airplane *player = nullptr)
+  Bullet_0(Spacecraft *player = nullptr)
     : Bullet(
         ":/image/bullet_0.png", "qrc:/sound/weapon_0.wav", 2, 100, player
       ) {}
@@ -50,13 +50,13 @@ public:
 
 class Bullet_1 : public Bullet {
 public:
-  Bullet_1(Airplane *player = nullptr)
+  Bullet_1(Spacecraft *player = nullptr)
     : Bullet(
         ":/image/bullet_1.png", "qrc:/sound/weapon_1.wav", 5, 300, player
       ) {}
 };
 
-inline Bullet *new_bullet_of_type(BulletType type, Airplane *owner) {
+inline Bullet *new_bullet_of_type(BulletType type, Spacecraft *owner) {
   switch (type) {
   case BULLET_0:
     return new Bullet_0(owner);

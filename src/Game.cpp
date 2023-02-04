@@ -74,7 +74,7 @@ void Game::prepare_common_dialog() {
 void Game::display_main_menu() {
   prepare_common_dialog();
   QGraphicsTextItem *title =
-    new QGraphicsTextItem(QString("Airplane Game"), common_dialog_);
+    new QGraphicsTextItem(QString("Spacecraft Game"), common_dialog_);
 
   title->setFont(QFont("sans", 18));
   title->setPos(
@@ -167,7 +167,7 @@ void Game::start_game() {
 
   keyboard_controller_->setFocus();
 
-  player_ = new Airplane();
+  player_ = new Spacecraft();
   player_->setPos(
     view_->width() / 2 - player_->width() / 2,
     view_->height() - player_->height() - 10

@@ -13,7 +13,7 @@ Bullet::Bullet(
   QString sound,
   int damage,
   int max_shoot_interval,
-  Airplane *player
+  Spacecraft *player
 )
   : image_(image), sound_(sound), damage_(damage),
     max_shoot_interval_(max_shoot_interval), player_(player) {

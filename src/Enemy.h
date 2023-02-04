@@ -4,7 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsRectItem>
 
-class Airplane;
+class Spacecraft;
 
 class Enemy : public QObject, public QGraphicsRectItem {
   Q_OBJECT
@@ -23,10 +23,10 @@ public:
   int get_layer() const { return layer_; }
   qreal height() const { return boundingRect().height(); }
   qreal width() const { return boundingRect().width(); }
-  void handle_bullet_hit(Airplane *player, int damage);
+  void handle_bullet_hit(Spacecraft *player, int damage);
 
 signals:
-  void hit_by_bullet(Airplane *player, int damage);
+  void hit_by_bullet(Spacecraft *player, int damage);
 };
 
 class Enemy_0 : public Enemy {

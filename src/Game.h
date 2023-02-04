@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Airplane.h"
+#include "Spacecraft.h"
 #include "CircleAudioPlayer.h"
 #include "CuteSoundPlayer.h"
 #include "Enemy.h"
@@ -21,13 +21,13 @@ public:
 private:
   /// layer 0 for static background (far) static things;
   /// layer 1 and 3 for enemies;
-  /// layer 2 for airplane;
+  /// layer 2 for Spacecraft;
   /// layer 4 (or 4+) for foreground (near) static things;
   static constexpr int NumOfLayers = 6;
 
   KeyboardController *keyboard_controller_ = nullptr;
   QGraphicsView *view_;
-  Airplane *player_ = nullptr;
+  Spacecraft *player_ = nullptr;
   Score *score_ = nullptr;
 
   CircleAudioPlayer *bgm_sound_;
@@ -47,7 +47,7 @@ private:
 
 public:
   Game(int width, int height, QWidget *parent = nullptr);
-  Airplane *get_player() { return player_; }
+  Spacecraft *get_player() { return player_; }
   void add_static_item(QGraphicsItem *item, int layer);
   bool add_item_to_layer(QGraphicsItem *item, int layer_num);
   QTimer *get_refresh_timer() { return refresh_timer_; }
