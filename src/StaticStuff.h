@@ -1,16 +1,12 @@
-#ifndef __STATIC_STUFF_H
-#define __STATIC_STUFF_H
+#pragma once
 
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
 
 class RandomStaticDust : public QGraphicsPixmapItem {
+  int dust_id_ = 0;
+  int dust_id_nums_ = 7;
+
 public:
-	RandomStaticDust(QGraphicsItem *parent = nullptr);
-
-private:
-	int dust_id = 0;
-	int dust_id_nums = 7;
+  RandomStaticDust(QGraphicsItem *parent = nullptr);
 };
-
-#endif

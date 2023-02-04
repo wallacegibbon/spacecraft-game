@@ -1,15 +1,11 @@
-#ifndef __CIRCLE_AUDIO_PLAYER_H
-#define __CIRCLE_AUDIO_PLAYER_H
+#pragma once
 
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
 
 class CircleAudioPlayer : public QMediaPlayer {
+  QMediaPlaylist *playlist_;
+
 public:
-	CircleAudioPlayer(QString media_url, QObject *parent = nullptr);
-
-private:
-	QMediaPlaylist *playlist;
+  CircleAudioPlayer(QString media_url, QObject *parent = nullptr);
 };
-
-#endif

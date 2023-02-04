@@ -1,5 +1,4 @@
-#ifndef __SCORE_H
-#define __SCORE_H
+#pragma once
 
 #include "Airplane.h"
 #include <QGraphicsItem>
@@ -7,13 +6,10 @@
 #include <QGraphicsTextItem>
 
 class Score : public QGraphicsRectItem {
+  Airplane *player_;
+  QGraphicsTextItem *score_;
+
 public:
-	Score(Airplane *_player);
-	void update_score_display();
-
-private:
-	Airplane *player;
-	QGraphicsTextItem *score;
+  Score(Airplane *player);
+  void update_score_display();
 };
-
-#endif

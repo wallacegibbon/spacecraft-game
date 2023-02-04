@@ -1,32 +1,27 @@
-#ifndef __STATIC_EXPLOSION_H
-#define __STATIC_EXPLOSION_H
+#pragma once
 
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
 
 class StaticExplosion : public QObject, public QGraphicsPixmapItem {
-	Q_OBJECT
+  Q_OBJECT
+
+  int id_;
+  int total_frames_;
+  int current_frame_ = 0;
+  int v_width_ = 0;
+  int v_height_ = 0;
 
 public:
-	StaticExplosion(int _id, int _total_frames,
-		QGraphicsItem *parent = nullptr);
-
-	void set_v_size(int x, int y);
+  StaticExplosion(int id, int total_frames, QGraphicsItem *parent = nullptr);
+  void set_v_size(int x, int y);
 
 private:
-	void animation_update();
-	void set_animation_image(int index);
-
-	int id;
-	int total_frames;
-	int current_frame = 0;
-	int v_width = 0;
-	int v_height = 0;
+  void animation_update();
+  void set_animation_image(int index);
 };
 
 class StaticExplosion_0 : public StaticExplosion {
 public:
-	StaticExplosion_0() : StaticExplosion(0, 32) {}
+  StaticExplosion_0() : StaticExplosion(0, 32) {}
 };
-
-#endif
