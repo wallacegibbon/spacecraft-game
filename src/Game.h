@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Spacecraft.h"
 #include "CircleAudioPlayer.h"
 #include "CuteSoundPlayer.h"
 #include "Enemy.h"
 #include "KeyboardController.h"
 #include "Score.h"
+#include "Spacecraft.h"
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>

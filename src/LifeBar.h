@@ -11,6 +11,7 @@ class LifeBar : public QGraphicsRectItem {
 
 public:
   LifeBar(int init_value, QGraphicsItem *parent = nullptr);
+
   void update_value(int value);
   int height() const { return rect().height(); }
   int width() const { return rect().width(); }

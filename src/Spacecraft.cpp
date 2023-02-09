@@ -74,10 +74,7 @@ void Spacecraft::update_flame_cnt() {
 void Spacecraft::shoot() {
   Bullet *new_bullet = new_bullet_of_type(bullet_type_, this);
   int64_t now = QDateTime::currentMSecsSinceEpoch();
-  /*
-  qDebug() << "max shoot interval:"
-          << new_bullet->get_max_shoot_interval();
-  */
+  // qDebug() << "max shoot interval:" << new_bullet->get_max_shoot_interval();
   if (now - previous_shoot_time_ > new_bullet->get_max_shoot_interval()) {
     previous_shoot_time_ = now;
   } else {

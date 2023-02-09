@@ -115,7 +115,8 @@ void Game::display_replay_menu() {
   Button *replay_button = new Button(QString("Re-Play"), common_dialog_);
 
   replay_button->setPos(
-    (common_dialog_->rect().width() - replay_button->boundingRect().width()) / 2,
+    (common_dialog_->rect().width() - replay_button->boundingRect().width()) /
+      2,
     130
   );
 

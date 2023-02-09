@@ -1,6 +1,6 @@
 #include "Enemy.h"
-#include "Spacecraft.h"
 #include "Game.h"
+#include "Spacecraft.h"
 #include "StaticExplosion.h"
 #include "common.h"
 #include <QGraphicsScene>

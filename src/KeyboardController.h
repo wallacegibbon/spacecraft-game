@@ -22,9 +22,7 @@ public:
   static constexpr uint64_t Joystick_Shoot = 1 << 4;
   static constexpr uint64_t Joystick_Switch_Weapon = 1 << 5;
 
-  KeyboardController(
-    int repeat_interval = 50, QGraphicsItem *parent = nullptr
-  );
+  KeyboardController(int repeat_interval = 50, QGraphicsItem *parent = nullptr);
 
   void keyPressEvent(QKeyEvent *event) override;
   void keyReleaseEvent(QKeyEvent *event) override;
