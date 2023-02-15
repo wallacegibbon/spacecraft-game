@@ -284,19 +284,27 @@ void Game::keyboard_handler(uint64_t command) const {
 	uint64_t right_hold = command & KeyboardController::Joystick_Move_Right;
 	uint64_t up_hold = command & KeyboardController::Joystick_Move_Up;
 	uint64_t down_hold = command & KeyboardController::Joystick_Move_Down;
-	if (left_hold && !right_hold) player_->move_left(8);
-	if (right_hold && !left_hold) player_->move_right(8);
+
+	if (left_hold && !right_hold)
+		player_->move_left(8);
+
+	if (right_hold && !left_hold)
+		player_->move_right(8);
 
 	if ((left_hold && right_hold) || (!left_hold && !right_hold))
 		player_->backto_normal_direction();
 
-	if (up_hold && !down_hold) player_->move_up(8);
-	if (down_hold && !up_hold) player_->move_down(STATIC_Y_STEP - 1);
+	if (up_hold && !down_hold)
+		player_->move_up(8);
+
+	if (down_hold && !up_hold)
+		player_->move_down(STATIC_Y_STEP - 1);
 
 	if ((up_hold && down_hold) || (!up_hold && !down_hold))
 		player_->backto_normal_speed();
 
-	if (command & KeyboardController::Joystick_Shoot) player_->shoot();
+	if (command & KeyboardController::Joystick_Shoot)
+		player_->shoot();
 
 	if (command & KeyboardController::Joystick_Switch_Weapon)
 		player_->switch_weapon();

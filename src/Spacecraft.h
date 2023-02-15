@@ -42,7 +42,7 @@ private:
 
 	int score_ = 0;
 	int life_ = 10;
-	int Spacecraft_id_ = 0;
+	int spacecraft_id_ = 0;
 	int flame_id_ = 0;
 	int flame_cnt_ = 0;
 	int flame_cnt_total_ = 3;

@@ -48,13 +48,13 @@ QString Spacecraft::body_image_url() const {
 	switch (direction_) {
 	case Left:
 		return QString(":/image/spacecraft_%1/left.png")
-			.arg(Spacecraft_id_);
+			.arg(spacecraft_id_);
 	case Right:
 		return QString(":/image/spacecraft_%1/right.png")
-			.arg(Spacecraft_id_);
+			.arg(spacecraft_id_);
 	default:
 		return QString(":/image/spacecraft_%1/normal.png")
-			.arg(Spacecraft_id_);
+			.arg(spacecraft_id_);
 	}
 }
 
